@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducer from './reducers';
-import App from './App';
+import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import 'normalize.css';
 import 'antd/dist/antd.css';
+import './index.scss';
 
 const store = createStore(reducer);
 

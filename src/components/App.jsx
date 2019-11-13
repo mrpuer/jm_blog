@@ -1,15 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Row, Col } from 'antd';
+import { Layout } from 'antd';
 import Login from './Login';
 import Register from './Register';
 import User from './User';
+import AppHeader from './AppHeader';
+import AppFooter from './AppFooter';
+
+const { Content } = Layout;
 
 function App() {
   return (
-    <Row type="flex" justify="start">
-      <Col span={8}>
-        <Router>
+    <Router>
+      <Layout>
+        <AppHeader />
+        <Content className="main">
           <Switch>
             <Route path="/register">
               <Register />
@@ -21,9 +26,10 @@ function App() {
               <User />
             </Route>
           </Switch>
-        </Router>
-      </Col>
-    </Row>
+        </Content>
+        <AppFooter className="footer" />
+      </Layout>
+    </Router>
   );
 }
 
