@@ -4,9 +4,17 @@ import { Button, Form as AntForm } from 'antd';
 import { AntInput, AntInputPassword } from './CreateAntField';
 
 // eslint-disable-next-line react/prop-types
-const DisplayLoginForm = ({ data: { submitCount, isSubmitting } }) => {
+const DisplayRegisterForm = ({ data: { submitCount, isSubmitting } }) => {
   return (
     <Form className="form">
+      <Field
+        name="username"
+        type="text"
+        label="Username"
+        component={AntInput}
+        submitCount={submitCount}
+        hasFeedback
+      />
       <Field
         name="email"
         type="email"
@@ -25,11 +33,11 @@ const DisplayLoginForm = ({ data: { submitCount, isSubmitting } }) => {
       />
       <AntForm.Item>
         <Button type="primary" htmlType="submit" disabled={isSubmitting}>
-          Login
+          Register
         </Button>
       </AntForm.Item>
     </Form>
   );
 };
 
-export default DisplayLoginForm;
+export default DisplayRegisterForm;
