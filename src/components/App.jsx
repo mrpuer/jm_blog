@@ -4,8 +4,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Layout } from 'antd';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import RealworldService from '../services/RealworldService';
+// import RealworldService from '../services/RealworldService';
+// import TestService from '../services/TestService';
 import userReducer from '../reducers/userReduser';
 
 import Login from './Login';
@@ -16,19 +18,10 @@ import AppFooter from './AppFooter';
 
 const { Content } = Layout;
 
-const service = new RealworldService();
+// const service = new RealworldService();
+// const service = new TestService();
 
-service
-  .login({
-    user: {
-      email: 'jake@jake.jake',
-      password: 'jakejake',
-    },
-  })
-  .then(console.log)
-  .catch(console.log);
-
-const store = createStore(userReducer, applyMiddleware(thunk));
+const store = createStore(userReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 function App() {
   return (

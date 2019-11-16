@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const URL = 'https://conduit.productionready.io/api/';
 
-export default class realworldService {
+export default class RealworldService {
   constructor() {
     this.connector = axios.create({
       baseURL: URL,

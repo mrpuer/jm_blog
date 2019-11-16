@@ -25,4 +25,6 @@ export const registerSchema = yup.object().shape({
     .required('Username is required field.')
     .min(3, 'Username must contains more that 3 symbols')
     .max(50, 'Username must contains less that 50 symbols'),
+  bio: yup.string(),
+  image: yup.string().url('Image URL incorrect'),
 });
