@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import { message } from 'antd';
 
 const initState = {
   user: {},
@@ -16,10 +17,12 @@ const userReducer = handleActions(
     USER_REGISTER_SUCCESS: (state, { payload }) => ({
       user: payload.newUser,
       isLogged: true,
-      ...state,
     }),
     // USER_REGISTER_FAILURE: (state, { payload }) => {},
-    USER_LOGOUT: () => initState,
+    USER_LOGOUT: () => {
+      message.success('Logout successful!');
+      return initState;
+    },
   },
   initState
 );

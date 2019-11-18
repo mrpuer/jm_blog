@@ -35,7 +35,7 @@ const DisplayRegisterForm = ({ data }) => {
       <Field
         name="passwordRepeat"
         type="password"
-        label="Password"
+        label="Repeat password"
         component={AntInputPassword}
         submitCount={submitCount}
         hasFeedback

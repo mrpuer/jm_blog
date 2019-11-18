@@ -7,7 +7,7 @@ const service = new RealworldService();
 
 const userRegisterRequest = createAction('USER_REGISTER_REQUEST');
 const userRegisterSuccess = createAction('USER_REGISTER_SUCCESS');
-const userRegisterFailure = createAction('USER_REGISTER_FAILURE');
+// const userRegisterFailure = createAction('USER_REGISTER_FAILURE');
 
 // const userLoginRequest = createAction('USER_LOGIN_REQUEST');
 const userLoginSuccess = createAction('USER_LOGIN_SUCCESS');
@@ -17,13 +17,8 @@ export const userLogout = createAction('USER_LOGOUT');
 
 export const onRegister = formData => async dispatch => {
   dispatch(userRegisterRequest());
-  try {
-    const newUser = await service.register(formData);
-    dispatch(userRegisterSuccess({ newUser }));
-  } catch (err) {
-    console.log('error!', err.message);
-    dispatch(userRegisterFailure({ err }));
-  }
+  const newUser = await service.register(formData);
+  dispatch(userRegisterSuccess({ newUser }));
 };
 
 export const onLogin = loginData => async dispatch => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Modal } from 'antd';
+import { Modal, message } from 'antd';
 import DisplayLoginForm from './DisplayLoginForm';
 import { loginSchema } from '../schemas/schemas';
 import { onLogin } from '../actions/actionsCreator';
@@ -21,6 +21,7 @@ const LoginForm = ({ loginHandler }) => {
         setSubmitting(true);
         loginHandler(values)
           .then(() => {
+            message.success('Login successful!');
             setSubmitting(false);
           })
           .catch(({ response }) => {

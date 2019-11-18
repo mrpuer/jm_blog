@@ -20,6 +20,7 @@ export const registerSchema = yup.object().shape({
       /^(?=^.{8,40}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z]).*$/,
       'Password must contains 8-40 latin symbols, one on upper case, and one digit'
     ),
+  passwordRepeat: yup.string().oneOf([yup.ref('password'), null], 'Password must match'),
   username: yup
     .string()
     .required('Username is required field')
