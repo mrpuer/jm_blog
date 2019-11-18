@@ -12,7 +12,7 @@ export default class RealworldService {
     const {
       data: { user },
     } = await axios.post('/users', { user: newUser });
-    axios.defaults.headers.Authorization = user.token;
+    // axios.defaults.headers.Authorization = user.token;
     return user;
   };
 
@@ -20,7 +20,7 @@ export default class RealworldService {
     const {
       data: { user },
     } = await axios.post('/users/login', { user: loginData });
-    axios.defaults.headers.Authorization = user.token;
+    // axios.defaults.headers.Authorization = user.token;
     return user;
   };
 }
