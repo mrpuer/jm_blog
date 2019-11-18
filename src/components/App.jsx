@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import { Layout } from 'antd';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import userReducer from '../reducers/userReduser';
+import userReducer from '../reducers/userReducer';
 import { Register, User, Login } from '../pages';
 import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';

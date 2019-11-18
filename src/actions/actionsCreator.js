@@ -1,4 +1,32 @@
 import { createAction } from 'redux-actions';
+import RealworldService from '../services/RealworldService';
+// import TestService from '../services/TestService';
 
-export const onLogin = createAction('LOGIN_USER', data => ({ data }));
-export const onRegister = createAction('REGISTER_USER', newUser => ({ newUser }));
+const service = new RealworldService();
+// const service = new TestService();
+
+const userRegisterRequest = createAction('USER_REGISTER_REQUEST');
+const userRegisterSuccess = createAction('USER_REGISTER_SUCCESS');
+const userRegisterFailure = createAction('USER_REGISTER_FAILURE');
+
+// const userLoginRequest = createAction('USER_LOGIN_REQUEST');
+const userLoginSuccess = createAction('USER_LOGIN_SUCCESS');
+// const userLoginFailure = createAction('USER_LOGIN_FAILURE');
+
+export const userLogout = createAction('USER_LOGOUT');
+
+export const onRegister = formData => async dispatch => {
+  dispatch(userRegisterRequest());
+  try {
+    const newUser = await service.register(formData);
+    dispatch(userRegisterSuccess({ newUser }));
+  } catch (err) {
+    console.log('error!', err.message);
+    dispatch(userRegisterFailure({ err }));
+  }
+};
+
+export const onLogin = loginData => async dispatch => {
+  const user = await service.login(loginData);
+  dispatch(userLoginSuccess({ user }));
+};

@@ -4,20 +4,23 @@ const URL = 'https://conduit.productionready.io/api/';
 
 export default class RealworldService {
   constructor() {
-    this.connector = axios.create({
-      baseURL: URL,
-      timeout: 1000,
-      headers: { ContentType: 'application/json; charset=utf-8', Authorization: '' },
-    });
+    axios.defaults.baseURL = URL;
+    axios.defaults.headers = { ContentType: 'application/json; charset=utf-8' };
   }
 
   register = async newUser => {
-    const registeredUser = await this.connector.post('/users', newUser);
-    return registeredUser;
+    const {
+      data: { user },
+    } = await axios.post('/users', { user: newUser });
+    axios.defaults.headers.Authorization = user.token;
+    return user;
   };
 
   login = async loginData => {
-    const user = await this.connector.post('/users/login', loginData);
+    const {
+      data: { user },
+    } = await axios.post('/users/login', { user: loginData });
+    axios.defaults.headers.Authorization = user.token;
     return user;
   };
 }

@@ -3,11 +3,14 @@ import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { userLogout } from '../actions/actionsCreator';
 
-const MainMenu = ({ isLogged }) =>
+const MainMenu = ({ isLogged, handleLogout }) =>
   isLogged ? (
     <Menu className="menu" theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-      <Menu.Item key="1">Logout</Menu.Item>
+      <Menu.Item key="1" onClick={handleLogout}>
+        Logout
+      </Menu.Item>
     </Menu>
   ) : (
     <Menu className="menu" theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
@@ -22,6 +25,7 @@ const MainMenu = ({ isLogged }) =>
 
 MainMenu.propTypes = {
   isLogged: PropTypes.bool,
+  handleLogout: PropTypes.func.isRequired,
 };
 
 MainMenu.defaultProps = {
@@ -32,4 +36,8 @@ const mapStateToProps = state => ({
   isLogged: state.isLogged,
 });
 
-export default connect(mapStateToProps)(MainMenu);
+const mapDispatch = {
+  handleLogout: userLogout,
+};
+
+export default connect(mapStateToProps, mapDispatch)(MainMenu);

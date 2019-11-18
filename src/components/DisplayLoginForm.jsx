@@ -1,9 +1,9 @@
 import React from 'react';
 import { Form, Field } from 'formik';
 import { Button, Form as AntForm } from 'antd';
+import PropTypes from 'prop-types';
 import { AntInput, AntInputPassword } from './CreateAntField';
 
-// eslint-disable-next-line react/prop-types
 const DisplayLoginForm = ({ data: { submitCount, isSubmitting } }) => {
   return (
     <Form className="form">
@@ -30,6 +30,20 @@ const DisplayLoginForm = ({ data: { submitCount, isSubmitting } }) => {
       </AntForm.Item>
     </Form>
   );
+};
+
+DisplayLoginForm.propTypes = {
+  data: PropTypes.shape({
+    submitCount: PropTypes.number,
+    isSubmitting: PropTypes.bool,
+  }),
+};
+
+DisplayLoginForm.defaultProps = {
+  data: {
+    submitCount: 0,
+    isSubmitting: false,
+  },
 };
 
 export default DisplayLoginForm;

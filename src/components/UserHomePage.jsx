@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 const UserHomePage = ({ user }) => {
   return (
     <>
-      <div>{user.email}</div>
-      <div>{user.password}</div>
+      <h2>Welcome {user.username}!</h2>
+      <div>Your email - {user.email}</div>
     </>
   );
 };
 
 UserHomePage.propTypes = {
-  user: PropTypes.objectOf({
+  user: PropTypes.shape({
     email: PropTypes.string,
-    password: PropTypes.string,
+    username: PropTypes.string,
   }).isRequired,
 };
 

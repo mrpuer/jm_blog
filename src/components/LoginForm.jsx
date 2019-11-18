@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Modal } from 'antd';
 import DisplayLoginForm from './DisplayLoginForm';
 import { loginSchema } from '../schemas/schemas';
 import { onLogin } from '../actions/actionsCreator';
@@ -13,7 +14,26 @@ const initialValues = {
 
 const LoginForm = ({ loginHandler }) => {
   return (
-    <Formik initialValues={initialValues} validationSchema={loginSchema} onSubmit={loginHandler}>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={loginSchema}
+      onSubmit={(values, { setSubmitting }) => {
+        setSubmitting(true);
+        loginHandler(values)
+          .then(() => {
+            setSubmitting(false);
+          })
+          .catch(({ response }) => {
+            Modal.error({
+              title: 'Login Error:',
+              content: Object.keys(response.data.errors)
+                .map(key => `${key} ${response.data.errors[key][0]}`)
+                .join('\n'),
+            });
+            setSubmitting(false);
+          });
+      }}
+    >
       {data => <DisplayLoginForm data={data} />}
     </Formik>
   );
