@@ -7,9 +7,9 @@ import LoginForm from '../components/LoginForm';
 const Login = ({ isLogged }) => {
   return (
     <Route
-      path="/"
+      path="./"
       exact
-      render={() => (isLogged ? <Redirect to={{ pathname: '/user' }} /> : <LoginForm />)}
+      render={() => (isLogged ? <Redirect to={{ pathname: './user' }} /> : <LoginForm />)}
     />
   );
 };

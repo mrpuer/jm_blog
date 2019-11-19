@@ -1,10 +1,10 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { Layout } from 'antd';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { Layout } from 'antd';
 
 import userReducer from '../reducers/userReducer';
 import { Register, User, Login } from '../pages';
@@ -14,7 +14,7 @@ import AppFooter from './AppFooter';
 const { Content } = Layout;
 const store = createStore(userReducer, composeWithDevTools(applyMiddleware(thunk)));
 
-function App() {
+const App = () => {
   return (
     <Provider store={store}>
       <Router>
@@ -30,6 +30,6 @@ function App() {
       </Router>
     </Provider>
   );
-}
+};
 
 export default App;

@@ -7,7 +7,7 @@ import RegisterForm from '../components/RegisterForm';
 const Register = ({ isLogged }) => {
   return (
     <Route
-      path="/register"
+      path="./register"
       render={() => (isLogged ? <Redirect to={{ pathname: '/user' }} /> : <RegisterForm />)}
     />
   );

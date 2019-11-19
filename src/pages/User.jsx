@@ -7,8 +7,8 @@ import UserHomePage from '../components/UserHomePage';
 const User = ({ isLogged }) => {
   return (
     <Route
-      path="/user"
-      render={() => (isLogged ? <UserHomePage /> : <Redirect to={{ pathname: '/' }} />)}
+      path="./user"
+      render={() => (isLogged ? <UserHomePage /> : <Redirect to={{ pathname: './' }} />)}
     />
   );
 };
