@@ -9,7 +9,7 @@ const AppHeader = () => {
   return (
     <Header>
       <h1 className="logo">
-        <Link to="/">Blog</Link>
+        <Link to="/jm_blog">Blog</Link>
       </h1>
       <MainMenu />
     </Header>
