@@ -7,8 +7,8 @@ import RegisterForm from '../components/RegisterForm';
 const Register = ({ isLogged }) => {
   return (
     <Route
-      path="/jm_blog/register"
-      render={() => (isLogged ? <Redirect to={{ pathname: '/jm_blog/user' }} /> : <RegisterForm />)}
+      path="/register"
+      render={() => (isLogged ? <Redirect to={{ pathname: '/user' }} /> : <RegisterForm />)}
     />
   );
 };

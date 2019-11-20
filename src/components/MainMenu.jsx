@@ -15,10 +15,10 @@ const MainMenu = ({ isLogged, handleLogout }) =>
   ) : (
     <Menu className="menu" theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
       <Menu.Item key="1">
-        <Link to="/jm_blog">Login</Link>
+        <Link to="/">Login</Link>
       </Menu.Item>
       <Menu.Item key="2">
-        <Link to="/jm_blog/register">Register</Link>
+        <Link to="/register">Register</Link>
       </Menu.Item>
     </Menu>
   );

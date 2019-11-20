@@ -28,9 +28,13 @@ const RegisterForm = ({ registerHandler }) => {
           .catch(({ response }) => {
             Modal.error({
               title: 'Register Error:',
-              content: Object.keys(response.data.errors)
-                .map(key => `${key} ${response.data.errors[key][0]}`)
-                .join('\n'),
+              content: (
+                <>
+                  {Object.keys(response.data.errors).map(key => (
+                    <div key={key}>{` - ${key} ${response.data.errors[key][0]}`}</div>
+                  ))}
+                </>
+              ),
             });
             setSubmitting(false);
           });

@@ -17,7 +17,7 @@ const store = createStore(userReducer, composeWithDevTools(applyMiddleware(thunk
 const App = () => {
   return (
     <Provider store={store}>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Layout>
           <AppHeader />
           <Content className="main">
