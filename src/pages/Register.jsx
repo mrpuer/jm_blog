@@ -8,7 +8,7 @@ const Register = ({ isLogged }) => {
   return (
     <Route
       path="/register"
-      render={() => (isLogged ? <Redirect to={{ pathname: '/user' }} /> : <RegisterForm />)}
+      render={() => (isLogged ? <Redirect to={{ pathname: '/' }} /> : <RegisterForm />)}
     />
   );
 };

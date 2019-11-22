@@ -1,0 +1,17 @@
+.articles-item {
+  &--avatar {
+    .ant-avatar {
+      width: 96px;
+      height: 96px;
+    }
+  }
+  &--username {
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  &--created {
+    margin-top: 20px;
+    font-size: 12px;
+  }
+}

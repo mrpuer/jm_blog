@@ -1,18 +1,19 @@
 import axios from 'axios';
 
-const URL = 'https://conduit.productionready.io/api/';
-
 export default class RealworldService {
-  constructor() {
-    axios.defaults.baseURL = URL;
-    axios.defaults.headers = { ContentType: 'application/json; charset=utf-8' };
+  constructor(url) {
+    axios.defaults.baseURL = url;
+    axios.defaults.headers = {
+      ContentType: 'application/json; charset=utf-8',
+      // Authorization: localStorage.getItem('token'),
+    };
   }
 
   register = async newUser => {
     const {
       data: { user },
     } = await axios.post('/users', { user: newUser });
-    // axios.defaults.headers.Authorization = user.token;
+    localStorage.setItem('token', user.token);
     return user;
   };
 
@@ -20,7 +21,17 @@ export default class RealworldService {
     const {
       data: { user },
     } = await axios.post('/users/login', { user: loginData });
-    // axios.defaults.headers.Authorization = user.token;
+    localStorage.setItem('token', user.token);
     return user;
+  };
+
+  getArticles = async params => {
+    const resp = await axios.get('/articles', { params });
+    return resp.data.articles;
+  };
+
+  favoriteArticle = async slug => {
+    const resp = await axios.get(`/articles/:${slug}/favorite`);
+    return resp.article;
   };
 }

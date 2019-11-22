@@ -13,15 +13,22 @@ const userRegisterSuccess = createAction('USER_REGISTER_SUCCESS');
 const userLoginSuccess = createAction('USER_LOGIN_SUCCESS');
 // const userLoginFailure = createAction('USER_LOGIN_FAILURE');
 
-export const userLogout = createAction('USER_LOGOUT');
+const userLogout = createAction('USER_LOGOUT');
 
 export const onRegister = formData => async dispatch => {
   dispatch(userRegisterRequest());
   const newUser = await service.register(formData);
+  localStorage.setItem('token', newUser.token);
   dispatch(userRegisterSuccess({ newUser }));
 };
 
 export const onLogin = loginData => async dispatch => {
   const user = await service.login(loginData);
+  localStorage.setItem('token', user.token);
   dispatch(userLoginSuccess({ user }));
+};
+
+export const onLogout = () => async dispatch => {
+  localStorage.removeItem('token');
+  dispatch(userLoginSuccess(userLogout));
 };

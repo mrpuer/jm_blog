@@ -6,13 +6,14 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Layout } from 'antd';
 
-import userReducer from '../reducers/userReducer';
-import { Register, User, Login } from '../pages';
-import AppHeader from './AppHeader';
-import AppFooter from './AppFooter';
+import reducer from './reducers';
+import { Register, Login } from './pages';
+import AppHeader from './components/AppHeader';
+import AppFooter from './components/AppFooter';
+import ArticlesPage from './articles/ArticlesPage';
 
 const { Content } = Layout;
-const store = createStore(userReducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 const App = () => {
   return (
@@ -21,9 +22,9 @@ const App = () => {
         <Layout>
           <AppHeader />
           <Content className="main">
+            <ArticlesPage />
             <Login />
             <Register />
-            <User />
           </Content>
           <AppFooter className="footer" />
         </Layout>

@@ -17,5 +17,6 @@
 - Ant Design
 - PropTypes
 - axios
+- date-fns
 - prop-types
 - normalize.css

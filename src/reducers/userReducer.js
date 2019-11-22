@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import { message } from 'antd';
 
 const initState = {
-  user: {},
+  user: { token: localStorage.getItem('token') || '' },
   isLogged: false,
 };
 
