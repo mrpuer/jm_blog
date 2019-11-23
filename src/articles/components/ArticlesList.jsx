@@ -24,13 +24,13 @@ class ArticlesList extends React.Component {
           },
           pageSize: 10,
         }}
-        dataSource={articles}
+        dataSource={Object.keys(articles)}
         header={
           <div>
             <h2>All Articles</h2>
           </div>
         }
-        renderItem={item => <ArticlesListItem article={item} />}
+        renderItem={item => <ArticlesListItem article={articles[item]} />}
       />
     );
   }
@@ -38,11 +38,11 @@ class ArticlesList extends React.Component {
 
 ArticlesList.propTypes = {
   getArticles: PropTypes.func.isRequired,
-  articles: PropTypes.arrayOf(articleProps),
+  articles: PropTypes.objectOf(articleProps),
 };
 
 ArticlesList.defaultProps = {
-  articles: [],
+  articles: {},
 };
 
 const mapStateToProps = state => ({

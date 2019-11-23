@@ -15,10 +15,18 @@ const ArticlesListItem = ({ article, favoriteArticle }) => {
           type="like-o"
           text={article.favoritesCount}
           key="list-vertical-like-o"
-          onClick={favoriteArticle(article.slug)}
+          onClick={() => favoriteArticle(article.slug)}
         />,
         <IconText type="tags" text={article.tagList.join(', ')} key="list-vertical-tags" />,
       ]}
+      extra={
+        <IconText
+          type="calendar"
+          text={`Created ${formatDistanceToNow(new Date(article.createdAt), {
+            addSuffix: true,
+          })}`}
+        />
+      }
     >
       <List.Item.Meta
         avatar={
@@ -35,19 +43,7 @@ const ArticlesListItem = ({ article, favoriteArticle }) => {
           </div>
         }
         title={<a href={article.slug}>{article.title}</a>}
-        description={
-          <div>
-            <div>article.description</div>
-            <div className="articles-item--created">
-              <IconText
-                type="calendar"
-                text={`Created ${formatDistanceToNow(new Date(article.createdAt), {
-                  addSuffix: true,
-                })}`}
-              />
-            </div>
-          </div>
-        }
+        description={article.description}
       />
     </List.Item>
   );

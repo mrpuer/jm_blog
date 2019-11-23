@@ -1,30 +1,67 @@
 import { handleActions } from 'redux-actions';
-import _ from 'lodash';
+import * as actions from './actions';
 
-const initState = [];
+const initState = {};
+
+// const articles = handleActions(
+//   {
+//     GET_ARTICLES_REQUEST: (state, { payload }) => {
+//       console.log('req');
+//       return state;
+//     },
+//     GET_ARTICLES_SUCCESS: (state, { payload }) => {
+//       console.log(payload);
+//       return payload.articles.reduce((acc, article) => {
+//         acc[article.slug] = article;
+//         return acc;
+//       }, {});
+//     },
+//     GET_ARTICLES_FAILURE: (state, { payload }) => {
+//       console.log('fail');
+//       return state;
+//     },
+//     FAVORITE_ARTICLE_REQUEST: (state, { payload }) => {
+//       console.log('req');
+//       return state;
+//     },
+//     FAVORITE_ARTICLE_SUCCESS: (state, { payload: { article } }) => {
+//       return { [article.slug]: article, ...state };
+//     },
+//     FAVORITE_ARTICLE_FAILURE: (state, { payload }) => {
+//       console.log('fail');
+//       return state;
+//     },
+//   },
+//   initState
+// );
 
 const articles = handleActions(
   {
-    GET_ARTICLES_REQUEST: () => {
-      console.log('request');
+    [actions.getArticlesRequest](state) {
+      console.log('req');
+      return state;
     },
-    GET_ARTICLES_SUCCESS: (state, { payload }) => {
-      return payload.articles;
+    [actions.getArticlesSuccess](state, { payload }) {
+      console.log(payload);
+      return payload.articles.reduce((acc, article) => {
+        acc[article.slug] = article;
+        return acc;
+      }, {});
     },
-    GET_ARTICLES_FAILURE: () => {
+    [actions.getArticlesFailure](state) {
       console.log('fail');
+      return state;
     },
-    FAVORITE_ARTICLE_REQUEST: () => {
-      console.log('request');
+    [actions.favoriteArticleRequest](state) {
+      console.log('req');
+      return state;
     },
-    FAVORITE_ARTICLE_SUCCESS: (state, { payload: { article } }) => {
-      const newState = _.remove(state, { slug: article.slug });
-      console.log(newState);
-      newState.push(article);
-      return newState;
+    [actions.favoriteArticleSuccess](state, { payload: { article } }) {
+      return { [article.slug]: article, ...state };
     },
-    FAVORITE_ARTICLE_FAILURE: () => {
+    [actions.favoriteArticleFailure](state) {
       console.log('fail');
+      return state;
     },
   },
   initState
