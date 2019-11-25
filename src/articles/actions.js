@@ -26,21 +26,18 @@ export const getArticlesAction = ({
       favorited,
     };
     const articles = await service.getArticles(filters);
-    console.log(articles);
     dispatch(getArticlesSuccess({ articles }));
   } catch (err) {
-    console.log(err);
-    dispatch(getArticlesFailure());
+    dispatch(getArticlesFailure(err));
   }
 };
 
 export const favoriteArticleAction = slug => async dispatch => {
-  console.log(slug);
   dispatch(favoriteArticleRequest());
   try {
     const article = await service.favoriteArticle(slug);
     dispatch(favoriteArticleSuccess({ article }));
   } catch (err) {
-    dispatch(favoriteArticleFailure());
+    dispatch(favoriteArticleFailure(err));
   }
 };

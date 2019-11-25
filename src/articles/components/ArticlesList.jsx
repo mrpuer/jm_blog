@@ -13,7 +13,7 @@ class ArticlesList extends React.Component {
   };
 
   render() {
-    const { articles } = this.props;
+    const { allArticles } = this.props;
     return (
       <List
         itemLayout="vertical"
@@ -24,13 +24,13 @@ class ArticlesList extends React.Component {
           },
           pageSize: 10,
         }}
-        dataSource={Object.keys(articles)}
+        dataSource={Object.keys(allArticles)}
         header={
           <div>
             <h2>All Articles</h2>
           </div>
         }
-        renderItem={item => <ArticlesListItem article={articles[item]} />}
+        renderItem={item => <ArticlesListItem article={allArticles[item]} />}
       />
     );
   }
@@ -38,15 +38,17 @@ class ArticlesList extends React.Component {
 
 ArticlesList.propTypes = {
   getArticles: PropTypes.func.isRequired,
-  articles: PropTypes.objectOf(articleProps),
+  allArticles: PropTypes.objectOf(articleProps),
 };
 
 ArticlesList.defaultProps = {
-  articles: {},
+  allArticles: {},
 };
 
-const mapStateToProps = state => ({
-  articles: state.articles,
+const mapStateToProps = ({ articles: { all, loading, error } }) => ({
+  allArticles: all,
+  loading,
+  error,
 });
 
 const dispatchProps = {

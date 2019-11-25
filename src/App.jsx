@@ -11,6 +11,7 @@ import { Register, Login } from './pages';
 import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
 import ArticlesPage from './articles/ArticlesPage';
+import ErrorBoundary from './error/ErrorBoundary';
 
 const { Content } = Layout;
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
@@ -18,17 +19,19 @@ const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 const App = () => {
   return (
     <Provider store={store}>
-      <Router basename={process.env.PUBLIC_URL}>
-        <Layout>
-          <AppHeader />
-          <Content className="main">
-            <ArticlesPage />
-            <Login />
-            <Register />
-          </Content>
-          <AppFooter className="footer" />
-        </Layout>
-      </Router>
+      <ErrorBoundary>
+        <Router basename={process.env.PUBLIC_URL}>
+          <Layout>
+            <AppHeader />
+            <Content className="main">
+              <ArticlesPage />
+              <Login />
+              <Register />
+            </Content>
+            <AppFooter className="footer" />
+          </Layout>
+        </Router>
+      </ErrorBoundary>
     </Provider>
   );
 };

@@ -7,6 +7,9 @@ import IconText from './IconText';
 import { favoriteArticleAction } from '../actions';
 
 const ArticlesListItem = ({ article, favoriteArticle }) => {
+  const handlerFavoriteArticle = slug => () => {
+    favoriteArticle(slug);
+  };
   return (
     <List.Item
       key={article.slug}
@@ -15,7 +18,7 @@ const ArticlesListItem = ({ article, favoriteArticle }) => {
           type="like-o"
           text={article.favoritesCount}
           key="list-vertical-like-o"
-          onClick={() => favoriteArticle(article.slug)}
+          handler={handlerFavoriteArticle(article.slug)}
         />,
         <IconText type="tags" text={article.tagList.join(', ')} key="list-vertical-tags" />,
       ]}

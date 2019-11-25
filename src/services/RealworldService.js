@@ -2,7 +2,6 @@ import axios from 'axios';
 
 export default class RealworldService {
   constructor(url) {
-    this.url = url;
     axios.defaults.baseURL = url;
     axios.defaults.headers = {
       ContentType: 'application/json; charset=utf-8',
@@ -32,7 +31,7 @@ export default class RealworldService {
   };
 
   favoriteArticle = async slug => {
-    const resp = await axios.get(`/articles/:${slug}/favorite`);
+    const resp = await axios.post(`/articles/:${slug}/favorite`);
     console.log(resp.article);
     return resp.article;
   };
