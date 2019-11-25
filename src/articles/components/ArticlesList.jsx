@@ -13,7 +13,8 @@ class ArticlesList extends React.Component {
   };
 
   render() {
-    const { allArticles } = this.props;
+    // eslint-disable-next-line no-unused-vars
+    const { allArticles, error } = this.props;
     return (
       <List
         itemLayout="vertical"
@@ -30,7 +31,9 @@ class ArticlesList extends React.Component {
             <h2>All Articles</h2>
           </div>
         }
-        renderItem={item => <ArticlesListItem article={allArticles[item]} />}
+        renderItem={item => (
+          <ArticlesListItem article={allArticles[item]} articleError={allArticles[item].error} />
+        )}
       />
     );
   }
@@ -39,10 +42,12 @@ class ArticlesList extends React.Component {
 ArticlesList.propTypes = {
   getArticles: PropTypes.func.isRequired,
   allArticles: PropTypes.objectOf(articleProps),
+  error: PropTypes.string,
 };
 
 ArticlesList.defaultProps = {
   allArticles: {},
+  error: null,
 };
 
 const mapStateToProps = ({ articles: { all, loading, error } }) => ({

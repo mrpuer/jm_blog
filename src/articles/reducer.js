@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import update from 'immutability-helper';
 
 const initState = {
   all: {},
@@ -9,7 +10,7 @@ const initState = {
 const articles = handleActions(
   {
     GET_ARTICLES_REQUEST: state => {
-      return { loading: true, error: null, ...state };
+      return { ...state, loading: true, error: null };
     },
     GET_ARTICLES_SUCCESS: (state, { payload }) => {
       const articlesObject = payload.articles.reduce((acc, article) => {
@@ -19,17 +20,17 @@ const articles = handleActions(
       return { loading: false, error: null, all: articlesObject };
     },
     GET_ARTICLES_FAILURE: (state, { payload: { response } }) => {
-      return { error: response.data, loading: false, ...state };
+      return { ...state, error: response.data, loading: false };
     },
     FAVORITE_ARTICLE_REQUEST: state => {
-      console.log('req');
       return state;
     },
     FAVORITE_ARTICLE_SUCCESS: (state, { payload: { article } }) => {
-      return { [article.slug]: article, ...state };
+      return { ...state, [article.slug]: article };
     },
-    FAVORITE_ARTICLE_FAILURE: state => {
-      return { error: 'i have error', ...state };
+    FAVORITE_ARTICLE_FAILURE: (state, { payload: { slug } }) => {
+      console.log(slug);
+      return update(state, { all: { [slug]: { $merge: { error: 'reduce error' } } } });
     },
   },
   initState

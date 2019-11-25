@@ -38,6 +38,6 @@ export const favoriteArticleAction = slug => async dispatch => {
     const article = await service.favoriteArticle(slug);
     dispatch(favoriteArticleSuccess({ article }));
   } catch (err) {
-    dispatch(favoriteArticleFailure(err));
+    dispatch(favoriteArticleFailure({ slug }));
   }
 };

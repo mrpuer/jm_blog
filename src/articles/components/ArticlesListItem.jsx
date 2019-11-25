@@ -6,7 +6,7 @@ import { articleProps } from '../propTypes';
 import IconText from './IconText';
 import { favoriteArticleAction } from '../actions';
 
-const ArticlesListItem = ({ article, favoriteArticle }) => {
+const ArticlesListItem = ({ article, error, favoriteArticle }) => {
   const handlerFavoriteArticle = slug => () => {
     favoriteArticle(slug);
   };
@@ -16,7 +16,7 @@ const ArticlesListItem = ({ article, favoriteArticle }) => {
       actions={[
         <IconText
           type="like-o"
-          text={article.favoritesCount}
+          text={error ? 'Error' : article.favoritesCount}
           key="list-vertical-like-o"
           handler={handlerFavoriteArticle(article.slug)}
         />,
