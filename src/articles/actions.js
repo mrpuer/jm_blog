@@ -10,6 +10,8 @@ export const favoriteArticleRequest = createAction('FAVORITE_ARTICLE_REQUEST');
 export const favoriteArticleSuccess = createAction('FAVORITE_ARTICLE_SUCCESS');
 export const favoriteArticleFailure = createAction('FAVORITE_ARTICLE_FAILURE');
 
+export const clearArticlesError = createAction('CLEAR_ARTICLES_ERROR');
+
 export const getArticlesAction = ({
   page = 1,
   tag = '',
@@ -38,6 +40,6 @@ export const favoriteArticleAction = slug => async dispatch => {
     const article = await service.favoriteArticle(slug);
     dispatch(favoriteArticleSuccess({ article }));
   } catch (err) {
-    dispatch(favoriteArticleFailure({ slug }));
+    dispatch(favoriteArticleFailure({ err: err.response }));
   }
 };

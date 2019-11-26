@@ -7,6 +7,9 @@ import IconText from './IconText';
 import { favoriteArticleAction } from '../actions';
 
 const ArticlesListItem = ({ article, error, favoriteArticle }) => {
+  if (error) {
+    throw new Error(error);
+  }
   const handlerFavoriteArticle = slug => () => {
     favoriteArticle(slug);
   };

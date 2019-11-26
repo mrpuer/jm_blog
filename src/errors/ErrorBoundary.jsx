@@ -10,10 +10,9 @@ export default class ErrorBoundary extends React.Component {
     };
   }
 
-  // eslint-disable-next-line no-unused-vars
   componentDidCatch(error, errorInfo) {
-    // console.log(error);
-    // console.log(errorInfo);
+    console.log(error);
+    console.log(errorInfo);
     this.setState({ hasError: true });
   }
 
@@ -26,6 +25,7 @@ export default class ErrorBoundary extends React.Component {
     const { children } = this.props;
     return hasError ? (
       <>
+        <div>ERROR!</div>
         <Modal title="Title" onOk={this.handleOk}>
           <p>ModalText</p>
         </Modal>
