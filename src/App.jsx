@@ -11,6 +11,7 @@ import { Register, Login } from './pages';
 import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
 import ArticlesPage from './articles/ArticlesPage';
+import ArticlePage from './article/ArticlePage';
 
 const { Content } = Layout;
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
@@ -23,6 +24,7 @@ const App = () => {
           <AppHeader />
           <Content className="main">
             <ArticlesPage />
+            <ArticlePage />
             <Login />
             <Register />
           </Content>

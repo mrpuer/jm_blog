@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Avatar, List } from 'antd';
 import { formatDistanceToNow } from 'date-fns';
 import { articleProps } from '../propTypes';
@@ -48,7 +49,7 @@ const ArticlesListItem = ({ article, error, favoriteArticle }) => {
             </div>
           </div>
         }
-        title={<a href={article.slug}>{article.title}</a>}
+        title={<Link to={`articles/${article.slug}`}>{article.title}</Link>}
         description={article.description}
       />
     </List.Item>

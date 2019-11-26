@@ -6,35 +6,22 @@ import { clearArticlesError } from '../articles/actions';
 import mapErrorsToMessage from './mapErrorsToMessage';
 
 const ServerError = props => {
-  // eslint-disable-next-line react/prop-types
   const { children, error, hideModal } = props;
-  // return error ? (
-  //   <>
-  //     <Modal title="Basic Modal" visible={!!error} onOk={hideModal}>
-  //       <p>Some contents...</p>
-  //       <p>Some contents...</p>
-  //       <p>Some contents...</p>
-  //     </Modal>
-  //     {children}
-  //   </>
-  // ) : (
-  //   <>{children}</>
-  // );
 
-  // const errorMessage = mapErrorsToMessage[error] || 'Unknown error. Try again.';
+  const errorMessage = mapErrorsToMessage[error];
   return (
     <>
       <Modal
         title="Server Error!"
-        visible={error}
-        onOk={hideModal}
+        visible={!!error}
+        onCancel={hideModal}
         footer={[
           <Button key="submit" type="primary" onClick={hideModal}>
             Close
           </Button>,
         ]}
       >
-        <p>{error}</p>
+        <p>{errorMessage}</p>
       </Modal>
       {children}
     </>
@@ -43,17 +30,17 @@ const ServerError = props => {
 
 ServerError.propTypes = {
   children: PropTypes.element,
-  // hasError: PropTypes.bool,
+  error: PropTypes.number,
   hideModal: PropTypes.func.isRequired,
 };
 
 ServerError.defaultProps = {
   children: <div className="error" />,
-  // hasError: false,
+  error: null,
 };
 
 const mapStateToProps = ({ articles: { error } }) => ({
-  error: { hasError: !!error, errorMessage: mapErrorsToMessage[error] },
+  error,
 });
 
 const dispatchProps = {
