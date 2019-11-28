@@ -2,38 +2,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Avatar, List } from 'antd';
-import { formatDistanceToNow } from 'date-fns';
-import { articleProps } from '../propTypes';
+import PropTypes from 'prop-types';
+import { articleProps } from '../../propTypes';
 import IconText from './IconText';
 import { favoriteArticleAction } from '../actions';
+import ArticleTags from '../../article/components/ArticleTags';
+import ArticleLikes from '../../article/components/ArticleLikes';
+import ArticleDates from '../../article/components/ArticleDates';
 
 const ArticlesListItem = ({ article, error, favoriteArticle }) => {
   if (error) {
     throw new Error(error);
   }
-  const handlerFavoriteArticle = slug => () => {
-    favoriteArticle(slug);
-  };
   return (
     <List.Item
       key={article.slug}
       actions={[
-        <IconText
-          type="like-o"
-          text={error ? 'Error' : article.favoritesCount}
-          key="list-vertical-like-o"
-          handler={handlerFavoriteArticle(article.slug)}
+        <ArticleLikes
+          handlerFavoriteArticle={() => favoriteArticle(article.slug)}
+          favoritesCount={article.favoritesCount}
         />,
-        <IconText type="tags" text={article.tagList.join(', ')} key="list-vertical-tags" />,
+        <ArticleTags tags={article.tagList} />,
       ]}
-      extra={
-        <IconText
-          type="calendar"
-          text={`Created ${formatDistanceToNow(new Date(article.createdAt), {
-            addSuffix: true,
-          })}`}
-        />
-      }
+      extra={<ArticleDates createdAt={article.createdAt} updatedAt={article.createdAt} />}
     >
       <List.Item.Meta
         avatar={
@@ -56,7 +47,15 @@ const ArticlesListItem = ({ article, error, favoriteArticle }) => {
   );
 };
 
-ArticlesListItem.propTypes = articleProps.isRequired;
+ArticlesListItem.propTypes = {
+  article: articleProps.isRequired,
+  error: PropTypes.string,
+  favoriteArticle: PropTypes.func.isRequired,
+};
+
+ArticlesListItem.defaultProps = {
+  error: null,
+};
 
 const dispatchProps = {
   favoriteArticle: favoriteArticleAction,

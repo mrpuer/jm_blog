@@ -1,25 +1,49 @@
 import { handleActions } from 'redux-actions';
 
 const initState = {
-  all: {},
-  loading: true,
+  all: {
+    'test-article': {
+      title: 'Article Title',
+      slug: 'test-article',
+      body:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi' +
+        ' ista probare, quae sunt a te dicta? Refert tamen, quo modo. Lorem ipsum dolor sit amet,' +
+        ' consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt' +
+        ' a te dicta? Refert tamen, quo modo. Lorem ipsum dolor sit amet, consectetur adipiscing' +
+        ' elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen,' +
+        ' quo modo.',
+      createdAt: '2019-11-26T18:31:33.645Z',
+      updatedAt: '2019-11-26T18:31:33.645Z',
+      tagList: ['tag1', 'tag2', 'tag3'],
+      description: 'Article Description',
+      favorited: false,
+      favoritesCount: 0,
+      author: {
+        username: 'Vovka',
+        bio: null,
+        image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
+        following: false,
+      },
+    },
+  },
+  isLoading: true,
   error: null,
 };
 
 const articles = handleActions(
   {
     GET_ARTICLES_REQUEST: state => {
-      return { ...state, loading: true, error: null };
+      return { ...state, isLoading: true, error: null };
     },
     GET_ARTICLES_SUCCESS: (state, { payload }) => {
       const articlesObject = payload.articles.reduce((acc, article) => {
         acc[article.slug] = article;
         return acc;
       }, {});
-      return { loading: false, error: null, all: articlesObject };
+      return { isLoading: false, error: null, all: articlesObject };
     },
     GET_ARTICLES_FAILURE: (state, { payload: { response } }) => {
-      return { ...state, error: response.data, loading: false };
+      return { ...state, error: response.data, isLoading: false };
     },
     FAVORITE_ARTICLE_REQUEST: state => {
       return state;
@@ -28,10 +52,10 @@ const articles = handleActions(
       return { ...state, [article.slug]: article };
     },
     FAVORITE_ARTICLE_FAILURE: (state, { payload: { err } }) => {
-      return { ...state, loading: false, error: err.status };
+      return { ...state, isLoading: false, error: err.status };
     },
     CLEAR_ARTICLES_ERROR: state => {
-      return { ...state, loading: false, error: null };
+      return { ...state, isLoading: false, error: null };
     },
   },
   initState

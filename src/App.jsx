@@ -12,6 +12,7 @@ import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
 import ArticlesPage from './articles/ArticlesPage';
 import ArticlePage from './article/ArticlePage';
+import ServerError from './errors/ServerError';
 
 const { Content } = Layout;
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
@@ -20,16 +21,18 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router basename={process.env.PUBLIC_URL}>
-        <Layout>
-          <AppHeader />
-          <Content className="main">
-            <ArticlesPage />
-            <ArticlePage />
-            <Login />
-            <Register />
-          </Content>
-          <AppFooter className="footer" />
-        </Layout>
+        <ServerError>
+          <Layout>
+            <AppHeader />
+            <Content className="main">
+              <ArticlesPage />
+              <ArticlePage />
+              <Login />
+              <Register />
+            </Content>
+            <AppFooter className="footer" />
+          </Layout>
+        </ServerError>
       </Router>
     </Provider>
   );

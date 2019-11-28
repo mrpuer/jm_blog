@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal } from 'antd';
 import { connect } from 'react-redux';
-import { clearArticlesError } from '../articles/actions';
 import mapErrorsToMessage from './mapErrorsToMessage';
+import { clearError } from './actions';
 
 const ServerError = props => {
   const { children, error, hideModal } = props;
-
   const errorMessage = mapErrorsToMessage[error];
   return (
     <>
@@ -39,12 +38,12 @@ ServerError.defaultProps = {
   error: null,
 };
 
-const mapStateToProps = ({ articles: { error } }) => ({
+const mapStateToProps = ({ error }) => ({
   error,
 });
 
 const dispatchProps = {
-  hideModal: clearArticlesError,
+  hideModal: clearError,
 };
 
 export default connect(mapStateToProps, dispatchProps)(ServerError);

@@ -32,7 +32,11 @@ export default class RealworldService {
 
   favoriteArticle = async slug => {
     const resp = await axios.post(`/articles/:${slug}/favorite`);
-    console.log(resp.article);
     return resp.article;
+  };
+
+  getArticle = async slug => {
+    const resp = await axios.get(`/articles/${slug}`);
+    return resp.data.article;
   };
 }

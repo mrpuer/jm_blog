@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { List } from 'antd';
 import { getArticlesAction } from '../actions';
 import ArticlesListItem from './ArticlesListItem';
-import { articleProps } from '../propTypes';
-import ServerError from '../../errors/ServerError';
+import { articleProps } from '../../propTypes';
+import SpinnerWrapper from '../../spinner/SpinnerWrapper';
 
 class ArticlesList extends React.Component {
   componentDidMount = () => {
@@ -14,10 +14,9 @@ class ArticlesList extends React.Component {
   };
 
   render() {
-    // eslint-disable-next-line no-unused-vars
-    const { allArticles } = this.props;
+    const { allArticles, isLoading } = this.props;
     return (
-      <ServerError>
+      <SpinnerWrapper isActive={isLoading}>
         <List
           itemLayout="vertical"
           size="large"
@@ -35,7 +34,7 @@ class ArticlesList extends React.Component {
           }
           renderItem={item => <ArticlesListItem article={allArticles[item]} />}
         />
-      </ServerError>
+      </SpinnerWrapper>
     );
   }
 }
@@ -43,15 +42,17 @@ class ArticlesList extends React.Component {
 ArticlesList.propTypes = {
   getArticles: PropTypes.func.isRequired,
   allArticles: PropTypes.objectOf(articleProps),
+  isLoading: PropTypes.bool,
 };
 
 ArticlesList.defaultProps = {
   allArticles: {},
+  isLoading: false,
 };
 
-const mapStateToProps = ({ articles: { all, loading } }) => ({
+const mapStateToProps = ({ articles: { all, isLoading } }) => ({
   allArticles: all,
-  loading,
+  isLoading,
 });
 
 const dispatchProps = {
