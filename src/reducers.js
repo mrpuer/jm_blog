@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import articles from './articles/reducer';
-import user from './reducers/userReducer';
+import user from './forms/userReducer';
 import currentArticle from './article/reducer';
 import error from './errors/reducer';
 

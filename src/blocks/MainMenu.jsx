@@ -3,7 +3,7 @@ import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { onLogout } from '../actions/actionsCreator';
+import { onLogout } from '../forms/actions';
 
 const MainMenu = ({ isLogged, handleLogout }) =>
   isLogged ? (

@@ -7,6 +7,6 @@ export const clearErrorAction = () => dispatch => {
   dispatch(clearError());
 };
 
-export const setErrorAction = status => dispatch => {
-  dispatch(setError({ status }));
+export const setErrorAction = err => dispatch => {
+  dispatch(setError({ err }));
 };

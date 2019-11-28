@@ -3,9 +3,9 @@ import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { message, Modal } from 'antd';
-import { registerSchema } from '../schemas/schemas';
+import { registerSchema } from '../../schemas/schemas';
 import DisplayRegisterForm from './DisplayRegisterForm';
-import { onRegister } from '../actions/actionsCreator';
+import { onRegister } from '../actions';
 
 const initialValues = {
   email: '',

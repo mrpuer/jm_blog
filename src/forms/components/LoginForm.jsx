@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Modal, message } from 'antd';
 import DisplayLoginForm from './DisplayLoginForm';
-import { loginSchema } from '../schemas/schemas';
-import { onLogin } from '../actions/actionsCreator';
+import { loginSchema } from '../../schemas/schemas';
+import { onLogin } from '../actions';
 
 const initialValues = {
   email: '',

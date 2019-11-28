@@ -7,9 +7,10 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { Layout } from 'antd';
 
 import reducer from './reducers';
-import { Register, Login } from './pages';
-import AppHeader from './components/AppHeader';
-import AppFooter from './components/AppFooter';
+import RegisterPage from './forms/RegisterPage';
+import LoginPage from './forms/LoginPage';
+import AppHeader from './blocks/AppHeader';
+import AppFooter from './blocks/AppFooter';
 import ArticlesPage from './articles/ArticlesPage';
 import ArticlePage from './article/ArticlePage';
 import ServerError from './errors/ServerError';
@@ -27,8 +28,8 @@ const App = () => {
             <Content className="main">
               <ArticlesPage />
               <ArticlePage />
-              <Login />
-              <Register />
+              <LoginPage />
+              <RegisterPage />
             </Content>
             <AppFooter className="footer" />
           </Layout>
