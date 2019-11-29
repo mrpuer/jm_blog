@@ -13,6 +13,7 @@ import AppHeader from './blocks/AppHeader';
 import AppFooter from './blocks/AppFooter';
 import ArticlesPage from './articles/ArticlesPage';
 import ArticlePage from './article/ArticlePage';
+import ProfilePage from './profile/ProfilePage';
 import ServerError from './errors/ServerError';
 
 const { Content } = Layout;
@@ -27,6 +28,7 @@ const App = () => {
             <AppHeader />
             <Content className="main">
               <ArticlesPage />
+              <ProfilePage />
               <ArticlePage />
               <LoginPage />
               <RegisterPage />

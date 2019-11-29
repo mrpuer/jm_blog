@@ -12,5 +12,14 @@ export const articleProps = PropTypes.shape({
     updatedAt: PropTypes.dateFormat,
     favorited: PropTypes.bool,
     favoritesCount: PropTypes.num,
+    isLoading: PropTypes.bool,
   }),
+});
+
+export const profileProps = PropTypes.shape({
+  username: PropTypes.string,
+  bio: PropTypes.string,
+  image: PropTypes.string,
+  following: PropTypes.bool,
+  isLoading: PropTypes.bool,
 });

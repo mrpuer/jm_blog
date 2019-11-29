@@ -4,26 +4,31 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import LoginForm from './components/LoginForm';
 
-const LoginPage = ({ isLogged }) => {
+const LoginPage = ({ isLogged, username }) => {
   return (
     <Route
       path="/login"
       exact
-      render={() => (isLogged ? <Redirect to={{ pathname: '/user' }} /> : <LoginForm />)}
+      render={() =>
+        isLogged ? <Redirect to={{ pathname: `/profile/${username}` }} /> : <LoginForm />
+      }
     />
   );
 };
 
 LoginPage.propTypes = {
   isLogged: PropTypes.bool,
+  username: PropTypes.string,
 };
 
 LoginPage.defaultProps = {
   isLogged: false,
+  username: '',
 };
 
 const mapStateToProps = ({ user }) => ({
   isLogged: user.isLogged,
+  username: user.user.username,
 });
 
 export default connect(mapStateToProps)(LoginPage);

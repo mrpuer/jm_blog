@@ -50,9 +50,9 @@ ArticlesList.defaultProps = {
   isLoading: false,
 };
 
-const mapStateToProps = ({ articles: { all, isLoading } }) => ({
-  allArticles: all,
-  isLoading,
+const mapStateToProps = ({ articles }) => ({
+  allArticles: articles.all,
+  isLoading: articles.isLoading,
 });
 
 const dispatchProps = {

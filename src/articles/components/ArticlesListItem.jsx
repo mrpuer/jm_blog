@@ -9,52 +9,47 @@ import { favoriteArticleAction } from '../actions';
 import ArticleTags from '../../article/components/ArticleTags';
 import ArticleLikes from '../../article/components/ArticleLikes';
 import ArticleDates from '../../article/components/ArticleDates';
+import SpinnerWrapper from '../../spinner/SpinnerWrapper';
 
-const ArticlesListItem = ({ article, error, favoriteArticle }) => {
-  if (error) {
-    throw new Error(error);
-  }
+const ArticlesListItem = ({ article, favoriteArticle }) => {
   return (
-    <List.Item
-      key={article.slug}
-      actions={[
-        <ArticleLikes
-          handlerFavoriteArticle={() => favoriteArticle(article.slug)}
-          favoritesCount={article.favoritesCount}
-        />,
-        <ArticleTags tags={article.tagList} />,
-      ]}
-      extra={<ArticleDates createdAt={article.createdAt} updatedAt={article.createdAt} />}
-    >
-      <List.Item.Meta
-        avatar={
-          <div className="articles-item--avatar">
-            <div>
-              <Avatar src={article.author.image} />
+    <SpinnerWrapper isActive={article.isLoading}>
+      <List.Item
+        key={article.slug}
+        actions={[
+          <ArticleLikes
+            handlerFavoriteArticle={() => favoriteArticle(article.slug)}
+            favoritesCount={article.favoritesCount}
+          />,
+          <ArticleTags tags={article.tagList} />,
+        ]}
+        extra={<ArticleDates createdAt={article.createdAt} updatedAt={article.createdAt} />}
+      >
+        <List.Item.Meta
+          avatar={
+            <div className="articles-item--avatar">
+              <div>
+                <Avatar src={article.author.image} />
+              </div>
+              <div className="articles-item--username">
+                <span>
+                  <IconText type="star" />
+                </span>
+                <Link to={`profile/${article.author.username}`}>{article.author.username}</Link>
+              </div>
             </div>
-            <div className="articles-item--username">
-              <span>
-                <IconText type="star" />
-              </span>
-              <span>{article.author.username}</span>
-            </div>
-          </div>
-        }
-        title={<Link to={`articles/${article.slug}`}>{article.title}</Link>}
-        description={article.description}
-      />
-    </List.Item>
+          }
+          title={<Link to={`articles/${article.slug}`}>{article.title}</Link>}
+          description={article.description}
+        />
+      </List.Item>
+    </SpinnerWrapper>
   );
 };
 
 ArticlesListItem.propTypes = {
   article: articleProps.isRequired,
-  error: PropTypes.string,
   favoriteArticle: PropTypes.func.isRequired,
-};
-
-ArticlesListItem.defaultProps = {
-  error: null,
 };
 
 const dispatchProps = {

@@ -19,7 +19,7 @@ export const onRegister = formData => async dispatch => {
   dispatch(userRegisterRequest());
   try {
     const newUser = await service.register(formData);
-    // localStorage.setItem('token', newUser.token);
+    localStorage.setItem('token', newUser.token);
     dispatch(userRegisterSuccess({ newUser }));
   } catch (err) {
     dispatch(setError({ err }));
@@ -31,7 +31,7 @@ export const onLogin = loginData => async dispatch => {
   dispatch(userLoginRequest());
   try {
     const user = await service.login(loginData);
-    // localStorage.setItem('token', user.token);
+    localStorage.setItem('token', user.token);
     dispatch(userLoginSuccess({ user }));
   } catch (err) {
     dispatch(setError({ err }));

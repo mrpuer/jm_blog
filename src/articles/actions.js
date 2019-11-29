@@ -11,8 +11,6 @@ export const favoriteArticleRequest = createAction('FAVORITE_ARTICLE_REQUEST');
 export const favoriteArticleSuccess = createAction('FAVORITE_ARTICLE_SUCCESS');
 export const favoriteArticleFailure = createAction('FAVORITE_ARTICLE_FAILURE');
 
-export const clearArticlesError = createAction('CLEAR_ARTICLES_ERROR');
-
 export const getArticlesAction = ({
   page = 1,
   tag = '',
@@ -31,7 +29,8 @@ export const getArticlesAction = ({
     const articles = await service.getArticles(filters);
     dispatch(getArticlesSuccess({ articles }));
   } catch (err) {
-    dispatch(getArticlesFailure(err));
+    dispatch(getArticlesFailure());
+    dispatch(setError({ err: err.response }));
   }
 };
 

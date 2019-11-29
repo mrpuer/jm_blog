@@ -24,73 +24,37 @@ const initState = {
         image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
         following: false,
       },
+      isLoading: false,
     },
   },
-  isLoading: true,
-  error: null,
+  isLoading: false,
 };
 
 const articles = handleActions(
   {
     GET_ARTICLES_REQUEST: state => {
-      return { ...state, isLoading: true, error: null };
+      return { ...state, isLoading: true };
     },
     GET_ARTICLES_SUCCESS: (state, { payload }) => {
       const articlesObject = payload.articles.reduce((acc, article) => {
-        acc[article.slug] = article;
-        return acc;
+        return { ...acc, [article.slug]: { ...article, isLoading: false } };
       }, {});
-      return { isLoading: false, error: null, all: articlesObject };
+      return { all: articlesObject, isLoading: false };
     },
-    GET_ARTICLES_FAILURE: (state, { payload: { response } }) => {
-      return { ...state, error: response.data, isLoading: false };
+    GET_ARTICLES_FAILURE: state => {
+      return { ...state, isLoading: false };
     },
-    FAVORITE_ARTICLE_REQUEST: state => {
-      return state;
+    FAVORITE_ARTICLE_REQUEST: (state, { payload: { article } }) => {
+      return { ...state, [article.slug]: { ...article, isLoading: true } };
     },
     FAVORITE_ARTICLE_SUCCESS: (state, { payload: { article } }) => {
-      return { ...state, [article.slug]: article };
+      return { ...state, [article.slug]: { ...article, isLoading: false } };
     },
-    FAVORITE_ARTICLE_FAILURE: (state, { payload: { err } }) => {
-      return { ...state, isLoading: false, error: err.status };
-    },
-    CLEAR_ARTICLES_ERROR: state => {
-      return { ...state, isLoading: false, error: null };
+    FAVORITE_ARTICLE_FAILURE: (state, { payload: { article } }) => {
+      return { ...state, [article.slug]: { ...article, isLoading: false } };
     },
   },
   initState
 );
-
-// const articles = handleActions(
-//   {
-//     [actions.getArticlesRequest](state) {
-//       console.log('req');
-//       return state;
-//     },
-//     [actions.getArticlesSuccess](state, { payload }) {
-//       console.log(payload);
-//       return payload.articles.reduce((acc, article) => {
-//         acc[article.slug] = article;
-//         return acc;
-//       }, {});
-//     },
-//     [actions.getArticlesFailure](state) {
-//       console.log('fail');
-//       return state;
-//     },
-//     [actions.favoriteArticleRequest](state) {
-//       console.log('req');
-//       return state;
-//     },
-//     [actions.favoriteArticleSuccess](state, { payload: { article } }) {
-//       return { [article.slug]: article, ...state };
-//     },
-//     [actions.favoriteArticleFailure](state) {
-//       console.log('fail');
-//       return state;
-//     },
-//   },
-//   initState
-// );
 
 export default articles;

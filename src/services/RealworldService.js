@@ -39,4 +39,9 @@ export default class RealworldService {
     const resp = await axios.get(`/articles/${slug}`);
     return resp.data.article;
   };
+
+  getProfile = async username => {
+    const resp = await axios.get(`/profiles/${username}`);
+    return resp.data.profile;
+  };
 }

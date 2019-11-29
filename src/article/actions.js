@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import service from '../services';
+import { setError } from '../errors/actions';
 
 export const getArticleRequest = createAction('GET_ARTICLE_REQUEST');
 export const getArticleSuccess = createAction('GET_ARTICLE_SUCCESS');
@@ -11,6 +12,7 @@ export const getArticleAction = slug => async dispatch => {
     const article = await service.getArticle(slug);
     dispatch(getArticleSuccess({ article }));
   } catch (err) {
-    dispatch(getArticleFailure({ err: err.response }));
+    dispatch(getArticleFailure());
+    dispatch(setError({ err: err.response }));
   }
 };
