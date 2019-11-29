@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import LoginForm from './components/LoginForm';
+import LoginForm from '../forms/components/LoginForm';
 
 const LoginPage = ({ isLogged, username }) => {
   return (
@@ -28,7 +28,7 @@ LoginPage.defaultProps = {
 
 const mapStateToProps = ({ user }) => ({
   isLogged: user.isLogged,
-  username: user.user.username,
+  username: user.username,
 });
 
 export default connect(mapStateToProps)(LoginPage);

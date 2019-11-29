@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import RegisterForm from './components/RegisterForm';
+import RegisterForm from '../forms/components/RegisterForm';
 
 const RegisterPage = ({ isLogged }) => {
   return (

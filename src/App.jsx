@@ -5,15 +5,17 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Layout } from 'antd';
-
+import {
+  RegisterPage,
+  LoginPage,
+  ArticlesPage,
+  ArticlePage,
+  ProfilePage,
+  AddArticlePage,
+} from './pages';
 import reducer from './reducers';
-import RegisterPage from './forms/RegisterPage';
-import LoginPage from './forms/LoginPage';
 import AppHeader from './blocks/AppHeader';
 import AppFooter from './blocks/AppFooter';
-import ArticlesPage from './articles/ArticlesPage';
-import ArticlePage from './article/ArticlePage';
-import ProfilePage from './profile/ProfilePage';
 import ServerError from './errors/ServerError';
 
 const { Content } = Layout;
@@ -28,6 +30,7 @@ const App = () => {
             <AppHeader />
             <Content className="main">
               <ArticlesPage />
+              <AddArticlePage />
               <ProfilePage />
               <ArticlePage />
               <LoginPage />

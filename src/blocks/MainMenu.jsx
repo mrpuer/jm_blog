@@ -5,11 +5,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { onLogout } from '../forms/actions';
 
-const MainMenu = ({ isLogged, handleLogout }) =>
+const MainMenu = ({ isLogged, username, handleLogout }) =>
   isLogged ? (
     <Menu className="menu" theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-      <Menu.Item key="1" onClick={handleLogout}>
-        Logout
+      <Menu.Item key="1">
+        <Link to={`/profile/${username}`}>My Profile</Link>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Link to="/add">Add Article</Link>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <Link to="/" onClick={handleLogout}>
+          Logout
+        </Link>
       </Menu.Item>
     </Menu>
   ) : (
@@ -24,16 +32,19 @@ const MainMenu = ({ isLogged, handleLogout }) =>
   );
 
 MainMenu.propTypes = {
+  username: PropTypes.string,
   isLogged: PropTypes.bool,
   handleLogout: PropTypes.func.isRequired,
 };
 
 MainMenu.defaultProps = {
+  username: '',
   isLogged: false,
 };
 
-const mapStateToProps = state => ({
-  isLogged: state.isLogged,
+const mapStateToProps = ({ user }) => ({
+  isLogged: user.isLogged,
+  username: user.username,
 });
 
 const mapDispatch = {

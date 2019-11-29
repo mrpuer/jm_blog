@@ -2,7 +2,11 @@ import { handleActions } from 'redux-actions';
 import { message } from 'antd';
 
 const initState = {
-  user: { token: localStorage.getItem('token') || '' },
+  email: '',
+  token: localStorage.getItem('token') || null,
+  username: '',
+  bio: '',
+  image: null,
   isLoading: false,
   isLogged: false,
 };
@@ -10,16 +14,16 @@ const initState = {
 const userReducer = handleActions(
   {
     USER_LOGIN_REQUEST: state => {
-      return { ...state, isLoading: true };
+      return { ...state, isLogged: false, isLoading: true };
     },
     USER_LOGIN_SUCCESS: (state, { payload }) => {
-      return { user: payload.user, isLogged: true, isLoading: false };
+      return { ...payload.user, isLogged: true, isLoading: false };
     },
     USER_LOGIN_FAILURE: state => {
       return { ...state, isLogged: false, isLoading: false };
     },
     USER_REGISTER_REQUEST: state => {
-      return { ...state, isLoading: true };
+      return { ...state, isLogged: false, isLoading: true };
     },
     USER_REGISTER_SUCCESS: (state, { payload }) => ({
       user: payload.newUser,
