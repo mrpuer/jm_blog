@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Empty, Spin } from 'antd';
+import { Spin } from 'antd';
 
 const SpinnerWrapper = ({ isActive, children }) => {
   return isActive ? (
     <Spin size="large" tip="Please wait...">
-      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      {children}
     </Spin>
   ) : (
     <>{children}</>

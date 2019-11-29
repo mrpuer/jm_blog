@@ -14,7 +14,7 @@ const initState = {
     author: {
       username: '',
       bio: '',
-      image: 'https://i.stack.imgur.com/xHWG8.jpg',
+      image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
       following: false,
     },
   },

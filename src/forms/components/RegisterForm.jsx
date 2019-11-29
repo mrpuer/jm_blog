@@ -2,10 +2,10 @@ import React from 'react';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { message, Modal } from 'antd';
 import { registerSchema } from '../../schemas/schemas';
 import DisplayRegisterForm from './DisplayRegisterForm';
 import { onRegister } from '../actions';
+import SpinnerWrapper from '../../spinner/SpinnerWrapper';
 
 const initialValues = {
   email: '',
@@ -13,44 +13,39 @@ const initialValues = {
   username: '',
 };
 
-const RegisterForm = ({ registerHandler }) => {
+const RegisterForm = ({ registerHandler, showSpinner }) => {
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={registerSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setSubmitting(true);
-        registerHandler(values)
-          .then(() => {
-            message.success('Register successful!');
-            setSubmitting(false);
-          })
-          .catch(({ response }) => {
-            Modal.error({
-              title: 'Register Error:',
-              content: (
-                <>
-                  {Object.keys(response.data.errors).map(key => (
-                    <div key={key}>{` - ${key} ${response.data.errors[key][0]}`}</div>
-                  ))}
-                </>
-              ),
-            });
-            setSubmitting(false);
-          });
-      }}
-    >
-      {data => <DisplayRegisterForm data={data} />}
-    </Formik>
+    <SpinnerWrapper isActive={showSpinner}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={registerSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          setSubmitting(true);
+          registerHandler(values);
+          setSubmitting(false);
+        }}
+      >
+        {data => <DisplayRegisterForm data={data} />}
+      </Formik>
+    </SpinnerWrapper>
   );
 };
 
 RegisterForm.propTypes = {
   registerHandler: PropTypes.func.isRequired,
+  showSpinner: PropTypes.bool,
 };
+
+RegisterForm.defaultProps = {
+  showSpinner: false,
+};
+
+const mapStateToProps = ({ user: { isLoading } }) => ({
+  showSpinner: isLoading,
+});
 
 const dispatchProps = {
   registerHandler: onRegister,
 };
 
-export default connect(null, dispatchProps)(RegisterForm);
+export default connect(mapStateToProps, dispatchProps)(RegisterForm);

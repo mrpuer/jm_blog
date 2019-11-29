@@ -24,7 +24,7 @@ const DisplayLoginForm = ({ data: { submitCount, isSubmitting } }) => {
         hasFeedback
       />
       <AntForm.Item>
-        <Button type="primary" htmlType="submit" disabled={isSubmitting}>
+        <Button type="primary" htmlType="submit" loading={isSubmitting}>
           Login
         </Button>
       </AntForm.Item>

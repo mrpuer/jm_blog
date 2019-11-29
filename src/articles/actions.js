@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import service from '../services';
 import { POSTS_PER_PAGE } from './constants';
-import { setErrorAction } from '../errors/actions';
+import { setError } from '../errors/actions';
 
 export const getArticlesRequest = createAction('GET_ARTICLES_REQUEST');
 export const getArticlesSuccess = createAction('GET_ARTICLES_SUCCESS');
@@ -41,6 +41,6 @@ export const favoriteArticleAction = slug => async dispatch => {
     const article = await service.favoriteArticle(slug);
     dispatch(favoriteArticleSuccess({ article }));
   } catch (err) {
-    dispatch(setErrorAction({ err }));
+    dispatch(setError({ err }));
   }
 };

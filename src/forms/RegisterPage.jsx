@@ -8,7 +8,7 @@ const RegisterPage = ({ isLogged }) => {
   return (
     <Route
       path="/register"
-      render={() => (isLogged ? <Redirect to={{ pathname: '/' }} /> : <RegisterForm />)}
+      render={() => (isLogged ? <Redirect to={{ pathname: '/user' }} /> : <RegisterForm />)}
     />
   );
 };
@@ -21,8 +21,8 @@ RegisterPage.defaultProps = {
   isLogged: false,
 };
 
-const mapStateToProps = state => ({
-  isLogged: state.isLogged,
+const mapStateToProps = ({ user }) => ({
+  isLogged: user.isLogged,
 });
 
 export default connect(mapStateToProps)(RegisterPage);

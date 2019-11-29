@@ -2,34 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal } from 'antd';
 import { connect } from 'react-redux';
-import mapErrorsToMessage from './mapErrorsToMessage';
+import getErrorMessage from './getErrorMessage';
 import { clearError } from './actions';
 
 const ServerError = props => {
   const { children, error, hideModal } = props;
-  const errorMessage = mapErrorsToMessage[error];
-  return (
-    <>
-      <Modal
-        title="Server Error!"
-        visible={!!error}
-        onCancel={hideModal}
-        footer={[
-          <Button key="submit" type="primary" onClick={hideModal}>
-            Close
-          </Button>,
-        ]}
-      >
-        <p>{errorMessage}</p>
-      </Modal>
-      {children}
-    </>
-  );
+  if (error) {
+    const errorMessage = getErrorMessage(error);
+    return (
+      <>
+        <Modal
+          title={errorMessage.title}
+          visible={!!error}
+          onCancel={hideModal}
+          footer={[
+            <Button key="submit" type="primary" onClick={hideModal}>
+              Close
+            </Button>,
+          ]}
+        >
+          <div>{errorMessage.content}</div>
+        </Modal>
+        {children}
+      </>
+    );
+  }
+  return <>{children}</>;
 };
 
 ServerError.propTypes = {
   children: PropTypes.element,
-  error: PropTypes.number,
+  error: PropTypes.shape({
+    data: PropTypes.shape({
+      errors: PropTypes.oneOfType([
+        PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+        PropTypes.string,
+      ]),
+    }),
+    status: PropTypes.number,
+  }),
   hideModal: PropTypes.func.isRequired,
 };
 

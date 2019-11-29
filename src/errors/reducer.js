@@ -5,10 +5,11 @@ const initState = null;
 const error = handleActions(
   {
     CLEAR_ERROR: () => {
-      return null;
+      return initState;
     },
-    SET_ERROR: (state, { payload }) => {
-      return payload.status;
+    SET_ERROR: (state, { payload: { err } }) => {
+      const { data, status } = err.response;
+      return { data, status };
     },
   },
   initState

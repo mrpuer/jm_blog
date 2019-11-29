@@ -9,7 +9,7 @@ const LoginPage = ({ isLogged }) => {
     <Route
       path="/login"
       exact
-      render={() => (isLogged ? <Redirect to={{ pathname: '/' }} /> : <LoginForm />)}
+      render={() => (isLogged ? <Redirect to={{ pathname: '/user' }} /> : <LoginForm />)}
     />
   );
 };
@@ -22,8 +22,8 @@ LoginPage.defaultProps = {
   isLogged: false,
 };
 
-const mapStateToProps = state => ({
-  isLogged: state.isLogged,
+const mapStateToProps = ({ user }) => ({
+  isLogged: user.isLogged,
 });
 
 export default connect(mapStateToProps)(LoginPage);
