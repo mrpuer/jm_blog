@@ -37,3 +37,4 @@ const CreateAntField = AntComponent => ({
 
 export const AntInput = CreateAntField(Input);
 export const AntInputPassword = CreateAntField(Input.Password);
+export const AntTextArea = CreateAntField(Input.TextArea);

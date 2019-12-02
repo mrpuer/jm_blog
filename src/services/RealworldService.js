@@ -40,6 +40,11 @@ export default class RealworldService {
     return resp.data.article;
   };
 
+  addArticle = async newArticle => {
+    const resp = await axios.post(`/articles`, { article: newArticle });
+    return resp.data.article;
+  };
+
   getProfile = async username => {
     const resp = await axios.get(`/profiles/${username}`);
     return resp.data.profile;

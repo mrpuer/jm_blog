@@ -29,3 +29,10 @@ export const registerSchema = yup.object().shape({
   bio: yup.string(),
   image: yup.string().url('Image URL incorrect'),
 });
+
+export const articleSchema = yup.object().shape({
+  title: yup.string().required('Your article must contains a title'),
+  description: yup.string().required('Your article must contains a description'),
+  body: yup.string().required('Your article must contains a body'),
+  tagList: yup.array().of(yup.string().min(1, 'Please, type tag name or remove filed')),
+});

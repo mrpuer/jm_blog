@@ -19,19 +19,18 @@ const initState = {
     },
   },
   isLoading: false,
-  error: null,
 };
 
 const currentArticle = handleActions(
   {
     GET_ARTICLE_REQUEST: state => {
-      return { ...state, isLoading: true, error: null };
+      return { ...state, isLoading: true };
     },
     GET_ARTICLE_SUCCESS: (state, { payload }) => {
-      return { isLoading: false, error: null, data: payload.article };
+      return { isLoading: false, data: payload.article };
     },
-    GET_ARTICLE_FAILURE: (state, { payload: { err } }) => {
-      return { ...state, error: err.data, isLoading: false };
+    GET_ARTICLE_FAILURE: state => {
+      return { ...state, isLoading: false };
     },
   },
   initState

@@ -16,3 +16,14 @@ export const getArticleAction = slug => async dispatch => {
     dispatch(setError({ err: err.response }));
   }
 };
+
+export const addArticleAction = newArticle => async dispatch => {
+  dispatch(getArticleRequest());
+  try {
+    const article = await service.addArticle(newArticle);
+    dispatch(getArticleSuccess({ article }));
+  } catch (err) {
+    dispatch(getArticleFailure());
+    dispatch(setError({ err: err.response }));
+  }
+};
