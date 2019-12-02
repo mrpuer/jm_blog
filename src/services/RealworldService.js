@@ -3,25 +3,36 @@ import axios from 'axios';
 export default class RealworldService {
   constructor(url) {
     axios.defaults.baseURL = url;
-    axios.defaults.headers = {
-      ContentType: 'application/json; charset=utf-8',
-      // Authorization: localStorage.getItem('token'),
-    };
+    axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+    const token = localStorage.getItem('token');
+    if (token) this.setToken(token);
   }
 
+  setToken = token => {
+    axios.defaults.headers.common.Authorization = `Token ${token}`;
+  };
+
+  clearToken = () => {
+    delete axios.defaults.headers.common.Authorization;
+  };
+
   register = async newUser => {
+    this.clearToken();
     const {
       data: { user },
     } = await axios.post('/users', { user: newUser });
     localStorage.setItem('token', user.token);
+    this.setToken(user.token);
     return user;
   };
 
   login = async loginData => {
+    this.clearToken();
     const {
       data: { user },
     } = await axios.post('/users/login', { user: loginData });
     localStorage.setItem('token', user.token);
+    this.setToken(user.token);
     return user;
   };
 

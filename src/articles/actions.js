@@ -30,7 +30,7 @@ export const getArticlesAction = ({
     dispatch(getArticlesSuccess({ articles }));
   } catch (err) {
     dispatch(getArticlesFailure());
-    dispatch(setError({ err: err.response }));
+    dispatch(setError({ err }));
   }
 };
 

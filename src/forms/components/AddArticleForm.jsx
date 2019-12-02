@@ -21,6 +21,7 @@ const AddArticleForm = ({ addArticleHandler, showSpinner }) => {
         initialValues={initialValues}
         validationSchema={articleSchema}
         onSubmit={(values, { setSubmitting }) => {
+          console.log(values);
           addArticleHandler(values).then(() => setSubmitting(false));
         }}
       >
@@ -39,7 +40,7 @@ AddArticleForm.defaultProps = {
   showSpinner: false,
 };
 
-const mapStateToProps = ({ articles: { isLoading } }) => ({
+const mapStateToProps = ({ currentArticle: { isLoading } }) => ({
   showSpinner: isLoading,
 });
 

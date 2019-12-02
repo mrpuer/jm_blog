@@ -13,6 +13,6 @@ export const getProfileAction = username => async dispatch => {
     dispatch(getProfileSuccess({ profile }));
   } catch (err) {
     dispatch(getProfileFailure());
-    dispatch(setError({ err: err.response }));
+    dispatch(setError({ err }));
   }
 };

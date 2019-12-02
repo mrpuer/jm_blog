@@ -13,7 +13,7 @@ export const getArticleAction = slug => async dispatch => {
     dispatch(getArticleSuccess({ article }));
   } catch (err) {
     dispatch(getArticleFailure());
-    dispatch(setError({ err: err.response }));
+    dispatch(setError({ err }));
   }
 };
 
@@ -24,6 +24,6 @@ export const addArticleAction = newArticle => async dispatch => {
     dispatch(getArticleSuccess({ article }));
   } catch (err) {
     dispatch(getArticleFailure());
-    dispatch(setError({ err: err.response }));
+    dispatch(setError({ err }));
   }
 };

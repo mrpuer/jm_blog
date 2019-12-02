@@ -33,12 +33,15 @@ const ServerError = props => {
 ServerError.propTypes = {
   children: PropTypes.element,
   error: PropTypes.shape({
-    data: PropTypes.shape({
-      errors: PropTypes.oneOfType([
-        PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-        PropTypes.string,
-      ]),
-    }),
+    data: PropTypes.oneOfType([
+      PropTypes.shape({
+        errors: PropTypes.oneOfType([
+          PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+          PropTypes.string,
+        ]),
+      }),
+      PropTypes.string,
+    ]),
     status: PropTypes.number,
   }),
   hideModal: PropTypes.func.isRequired,
