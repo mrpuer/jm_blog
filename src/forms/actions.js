@@ -1,9 +1,9 @@
 import { createAction } from 'redux-actions';
+import { message } from 'antd';
 import RealworldService from '../services/RealworldService';
 import { setError } from '../errors/actions';
 
 const service = new RealworldService();
-// const service = new TestService();
 
 const userRegisterRequest = createAction('USER_REGISTER_REQUEST');
 const userRegisterSuccess = createAction('USER_REGISTER_SUCCESS');
@@ -41,5 +41,17 @@ export const onLogin = loginData => async dispatch => {
 
 export const onLogout = () => async dispatch => {
   localStorage.removeItem('token');
-  dispatch(userLogout);
+  dispatch(userLogout());
+  message.success('Logout successful!');
+};
+
+export const getUser = token => async dispatch => {
+  dispatch(userLoginRequest());
+  try {
+    const user = await service.getUser(token || localStorage.getItem('token'));
+    dispatch(userLoginSuccess({ user }));
+  } catch (err) {
+    service.clearToken();
+    dispatch(userLoginFailure());
+  }
 };

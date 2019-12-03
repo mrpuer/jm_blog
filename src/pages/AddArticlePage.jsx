@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import AddArticle from '../article/components/AddArticle';
 
 const AddArticlePage = ({ isLogged }) => (
-  <Route path="/add" render={() => (!isLogged ? <AddArticle /> : <span>Access Denied!</span>)} />
+  <Route path="/add" render={() => (isLogged ? <AddArticle /> : <span>Access Denied!</span>)} />
 );
 
 AddArticlePage.propTypes = {

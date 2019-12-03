@@ -36,6 +36,12 @@ export default class RealworldService {
     return user;
   };
 
+  getUser = async token => {
+    this.setToken(token);
+    const resp = await axios.get('/user');
+    return resp.data.user;
+  };
+
   getArticles = async params => {
     const resp = await axios.get('/articles', { params });
     return resp.data.articles;

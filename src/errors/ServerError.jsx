@@ -4,31 +4,39 @@ import { Button, Modal } from 'antd';
 import { connect } from 'react-redux';
 import getErrorMessage from './getErrorMessage';
 import { clearError } from './actions';
+import { getUser } from '../forms/actions';
 
-const ServerError = props => {
-  const { children, error, hideModal } = props;
-  if (error) {
-    const errorMessage = getErrorMessage(error);
-    return (
-      <>
-        <Modal
-          title={errorMessage.title}
-          visible={!!error}
-          onCancel={hideModal}
-          footer={[
-            <Button key="submit" type="primary" onClick={hideModal}>
-              Close
-            </Button>,
-          ]}
-        >
-          <div>{errorMessage.content}</div>
-        </Modal>
-        {children}
-      </>
-    );
+class ServerError extends React.Component {
+  componentDidMount() {
+    const { authUser, token } = this.props;
+    authUser(token);
   }
-  return <>{children}</>;
-};
+
+  render() {
+    const { children, error, hideModal } = this.props;
+    if (error) {
+      const errorMessage = getErrorMessage(error);
+      return (
+        <>
+          <Modal
+            title={errorMessage.title}
+            visible={!!error}
+            onCancel={hideModal}
+            footer={[
+              <Button key="submit" type="primary" onClick={hideModal}>
+                Close
+              </Button>,
+            ]}
+          >
+            <div>{errorMessage.content}</div>
+          </Modal>
+          {children}
+        </>
+      );
+    }
+    return <>{children}</>;
+  }
+}
 
 ServerError.propTypes = {
   children: PropTypes.element,
@@ -45,19 +53,24 @@ ServerError.propTypes = {
     status: PropTypes.number,
   }),
   hideModal: PropTypes.func.isRequired,
+  token: PropTypes.string,
+  authUser: PropTypes.func.isRequired,
 };
 
 ServerError.defaultProps = {
   children: <div className="error" />,
   error: null,
+  token: null,
 };
 
-const mapStateToProps = ({ error }) => ({
+const mapStateToProps = ({ error, user: { token } }) => ({
   error,
+  token,
 });
 
 const dispatchProps = {
   hideModal: clearError,
+  authUser: getUser,
 };
 
 export default connect(mapStateToProps, dispatchProps)(ServerError);

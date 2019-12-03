@@ -1,9 +1,8 @@
 import { handleActions } from 'redux-actions';
-import { message } from 'antd';
 
 const initState = {
   email: '',
-  token: localStorage.getItem('token') || null,
+  token: null,
   username: '',
   bio: '',
   image: null,
@@ -35,10 +34,7 @@ const userReducer = handleActions(
       isLogged: false,
       isLoading: false,
     }),
-    USER_LOGOUT: () => {
-      message.success('Logout successful!');
-      return initState;
-    },
+    USER_LOGOUT: () => initState,
   },
   initState
 );
