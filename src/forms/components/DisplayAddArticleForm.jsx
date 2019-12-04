@@ -64,7 +64,7 @@ const DisplayAddArticleForm = ({ data: { submitCount, isSubmitting, values } }) 
       </AntForm.Item>
       <AntForm.Item>
         <Button type="primary" htmlType="submit" loading={isSubmitting}>
-          Add new article
+          Save
         </Button>
       </AntForm.Item>
     </Form>

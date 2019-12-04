@@ -12,6 +12,7 @@ import {
   ArticlePage,
   ProfilePage,
   AddArticlePage,
+  EditArticlePage,
 } from './pages';
 import reducer from './reducers';
 import AppHeader from './blocks/AppHeader';
@@ -31,6 +32,7 @@ const App = () => {
             <Content className="main">
               <ArticlesPage />
               <AddArticlePage />
+              <EditArticlePage />
               <ProfilePage />
               <ArticlePage />
               <LoginPage />

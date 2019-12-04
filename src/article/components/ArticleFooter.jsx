@@ -1,14 +1,19 @@
 import React from 'react';
-import { Avatar, Col, Row } from 'antd';
+import { Avatar, Button, Col, Row } from 'antd';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { articleProps } from '../../propTypes';
 import ArticleDates from './ArticleDates';
 import ArticleLikes from './ArticleLikes';
 import ArticleTags from './ArticleTags';
-import { favoriteArticleAction } from '../../articles/actions';
+import { favoriteArticleAction, deleteArticleAction } from '../actions';
 
-const ArticleFooter = ({ article, favoriteArticle }) => {
+const ArticleFooter = ({ article, favoriteArticle, deleteArticle, username }) => {
+  const deleteArticleHandler = () => {
+    deleteArticle(article.slug).then(() => {});
+  };
+
   return (
     <Row gutter={[0, 8]}>
       <Col span={2}>
@@ -17,7 +22,7 @@ const ArticleFooter = ({ article, favoriteArticle }) => {
       <Col span={2}>
         <b>{article.author.username}</b>
       </Col>
-      <Col span={1} offset={11} className="article--likes">
+      <Col span={2} offset={5} className="article--likes">
         <ArticleLikes
           handlerFavoriteArticle={() => favoriteArticle(article.slug)}
           favoritesCount={article.favoritesCount}
@@ -26,28 +31,43 @@ const ArticleFooter = ({ article, favoriteArticle }) => {
       <Col span={4}>
         <ArticleTags tags={article.tagList} />
       </Col>
-      <Col span={4}>
+      <Col span={5}>
         <ArticleDates createdAt={article.createdAt} updatedAt={article.updatedAt} />
       </Col>
+      {article.author.username === username && (
+        <Col span={4}>
+          <Link to={`/articles/${article.slug}/edit`}>
+            <Button type="primary">Edit</Button>
+          </Link>
+          <Button type="danger" onClick={deleteArticleHandler}>
+            Delete
+          </Button>
+        </Col>
+      )}
     </Row>
   );
 };
 
 ArticleFooter.propTypes = {
   article: articleProps,
+  username: PropTypes.string,
   favoriteArticle: PropTypes.func.isRequired,
+  deleteArticle: PropTypes.func.isRequired,
 };
 
 ArticleFooter.defaultProps = {
   article: {},
+  username: '',
 };
 
-const mapStateToProps = ({ currentArticle: { data } }) => ({
+const mapStateToProps = ({ currentArticle: { data }, user: { username } }) => ({
   article: data,
+  username,
 });
 
 const dispatchProps = {
   favoriteArticle: favoriteArticleAction,
+  deleteArticle: deleteArticleAction,
 };
 
 export default connect(mapStateToProps, dispatchProps)(ArticleFooter);

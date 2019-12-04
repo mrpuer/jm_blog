@@ -5,7 +5,7 @@ import { Avatar, List } from 'antd';
 import PropTypes from 'prop-types';
 import { articleProps } from '../../propTypes';
 import IconText from './IconText';
-import { favoriteArticleAction } from '../actions';
+import { favoriteArticleAction } from '../../article/actions';
 import ArticleTags from '../../article/components/ArticleTags';
 import ArticleLikes from '../../article/components/ArticleLikes';
 import ArticleDates from '../../article/components/ArticleDates';

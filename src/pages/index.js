@@ -4,5 +4,14 @@ import ArticlesPage from './ArticlesPage';
 import ArticlePage from './ArticlePage';
 import ProfilePage from './ProfilePage';
 import AddArticlePage from './AddArticlePage';
+import EditArticlePage from './EditArticlePage';
 
-export { RegisterPage, LoginPage, ArticlesPage, ArticlePage, ProfilePage, AddArticlePage };
+export {
+  RegisterPage,
+  LoginPage,
+  ArticlesPage,
+  ArticlePage,
+  ProfilePage,
+  AddArticlePage,
+  EditArticlePage,
+};

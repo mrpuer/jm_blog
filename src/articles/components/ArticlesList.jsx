@@ -9,8 +9,8 @@ import SpinnerWrapper from '../../spinner/SpinnerWrapper';
 
 class ArticlesList extends React.Component {
   componentDidMount = () => {
-    const { getArticles } = this.props;
-    getArticles({});
+    const { getArticles, queryParams } = this.props;
+    getArticles(queryParams);
   };
 
   render() {
@@ -43,11 +43,15 @@ ArticlesList.propTypes = {
   getArticles: PropTypes.func.isRequired,
   allArticles: PropTypes.objectOf(articleProps),
   isLoading: PropTypes.bool,
+  queryParams: PropTypes.objectOf({
+    username: PropTypes.string,
+  }),
 };
 
 ArticlesList.defaultProps = {
   allArticles: {},
   isLoading: false,
+  queryParams: {},
 };
 
 const mapStateToProps = ({ articles }) => ({

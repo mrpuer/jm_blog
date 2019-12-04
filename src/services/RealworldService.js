@@ -62,6 +62,13 @@ export default class RealworldService {
     return resp.data.article;
   };
 
+  editArticle = async newData => {
+    const resp = await axios.put(`/articles/${newData.slug}`, { article: newData });
+    return resp.data.article;
+  };
+
+  deleteArticle = async slug => axios.delete(`/articles/:${slug}`);
+
   getProfile = async username => {
     const resp = await axios.get(`/profiles/${username}`);
     return resp.data.profile;
