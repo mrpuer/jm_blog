@@ -10,9 +10,16 @@ import SpinnerWrapper from '../../spinner/SpinnerWrapper';
 const POSTS_PER_PAGE = 10;
 
 class ArticlesList extends React.Component {
-  componentDidMount = () => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentPage: 1,
+    };
+  }
+
+  componentDidMount() {
     this.getData(1);
-  };
+  }
 
   componentDidUpdate(prevProps) {
     const { location } = this.props;
@@ -30,6 +37,7 @@ class ArticlesList extends React.Component {
 
   render() {
     const { articles } = this.props;
+    const { currentPage } = this.state;
     return (
       <SpinnerWrapper isActive={articles.isLoading}>
         <List
@@ -38,9 +46,11 @@ class ArticlesList extends React.Component {
           pagination={{
             onChange: page => {
               this.getData(page);
+              this.setState({ currentPage: page });
             },
             pageSize: 10,
             total: articles.articlesCount,
+            defaultCurrent: currentPage,
           }}
           dataSource={Object.keys(articles.all)}
           header={

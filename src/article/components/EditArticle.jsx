@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import EditArticleForm from '../../forms/components/EditArticleForm';
 import { articleProps } from '../../propTypes';
-import { getArticleAction } from '../actions';
+import { editArticleAction, getArticleAction } from '../actions';
 import SpinnerWrapper from '../../spinner/SpinnerWrapper';
+import ArticleForm from '../../forms/components/ArticleForm';
 
 class EditArticle extends React.Component {
   componentDidMount() {
@@ -14,12 +14,22 @@ class EditArticle extends React.Component {
   }
 
   render() {
-    const { data, isLoading } = this.props;
+    const { article, isLoading, editArticleHandler } = this.props;
+    const initialValues = {
+      title: article.title,
+      description: article.description,
+      body: article.body,
+      tagList: article.tagList,
+    };
     return (
       <div>
         <h1>Edit Article</h1>
         <SpinnerWrapper isActive={isLoading}>
-          <EditArticleForm article={data} />
+          <ArticleForm
+            initialValues={initialValues}
+            formHandler={editArticleHandler}
+            slug={article.slug}
+          />
         </SpinnerWrapper>
       </div>
     );
@@ -28,7 +38,8 @@ class EditArticle extends React.Component {
 
 EditArticle.propTypes = {
   getArticle: PropTypes.func.isRequired,
-  data: articleProps,
+  editArticleHandler: PropTypes.func.isRequired,
+  article: articleProps,
   isLoading: PropTypes.bool,
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -38,17 +49,18 @@ EditArticle.propTypes = {
 };
 
 EditArticle.defaultProps = {
-  data: {},
+  article: {},
   isLoading: false,
 };
 
 const mapDispatchToProps = ({ currentArticle: { data, isLoading } }) => ({
-  data,
+  article: data,
   isLoading,
 });
 
 const dispatchActions = {
   getArticle: getArticleAction,
+  editArticleHandler: editArticleAction,
 };
 
 export default connect(mapDispatchToProps, dispatchActions)(withRouter(EditArticle));
