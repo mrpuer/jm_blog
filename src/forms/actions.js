@@ -21,9 +21,11 @@ export const onRegister = formData => async dispatch => {
     const newUser = await service.register(formData);
     localStorage.setItem('token', newUser.token);
     dispatch(userRegisterSuccess({ newUser }));
+    return true;
   } catch (err) {
     dispatch(setError({ err }));
     dispatch(userRegisterFailure());
+    return false;
   }
 };
 
@@ -33,9 +35,11 @@ export const onLogin = loginData => async dispatch => {
     const user = await service.login(loginData);
     localStorage.setItem('token', user.token);
     dispatch(userLoginSuccess({ user }));
+    return true;
   } catch (err) {
     dispatch(setError({ err }));
     dispatch(userLoginFailure());
+    return false;
   }
 };
 

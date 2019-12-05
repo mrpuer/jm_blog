@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router-dom';
 import { registerSchema } from '../../schemas/schemas';
 import DisplayRegisterForm from './DisplayRegisterForm';
 import { onRegister } from '../actions';
@@ -14,15 +15,19 @@ const initialValues = {
 };
 
 const RegisterForm = ({ registerHandler, showSpinner }) => {
+  const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: '/' } };
   return (
     <SpinnerWrapper isActive={showSpinner}>
       <Formik
         initialValues={initialValues}
         validationSchema={registerSchema}
         onSubmit={(values, { setSubmitting }) => {
-          setSubmitting(true);
-          registerHandler(values);
-          setSubmitting(false);
+          registerHandler(values).then(result => {
+            if (result) history.replace(from);
+            setSubmitting(false);
+          });
         }}
       >
         {data => <DisplayRegisterForm data={data} />}

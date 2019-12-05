@@ -32,6 +32,7 @@ const currentArticle = handleActions(
     GET_ARTICLE_FAILURE: state => {
       return { ...state, isLoading: false };
     },
+    DELETE_ARTICLE_SUCCESS: () => initState,
   },
   initState
 );

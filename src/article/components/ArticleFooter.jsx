@@ -2,16 +2,18 @@ import React from 'react';
 import { Avatar, Button, Col, Row } from 'antd';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { articleProps } from '../../propTypes';
 import ArticleDates from './ArticleDates';
 import ArticleLikes from './ArticleLikes';
 import ArticleTags from './ArticleTags';
 import { favoriteArticleAction, deleteArticleAction } from '../actions';
+import '../styles/style.scss';
 
 const ArticleFooter = ({ article, favoriteArticle, deleteArticle, username }) => {
+  const history = useHistory();
   const deleteArticleHandler = () => {
-    deleteArticle(article.slug).then(() => {});
+    deleteArticle(article.slug).then(() => history.push(`/?author=${username}`));
   };
 
   return (
@@ -20,12 +22,13 @@ const ArticleFooter = ({ article, favoriteArticle, deleteArticle, username }) =>
         <Avatar src={article.author.image} shape="square" size={64} />
       </Col>
       <Col span={2}>
-        <b>{article.author.username}</b>
+        <Link to={`/profile/${article.author.username}`}>{article.author.username}</Link>
       </Col>
-      <Col span={2} offset={5} className="article--likes">
+      <Col span={2} offset={5}>
         <ArticleLikes
-          handlerFavoriteArticle={() => favoriteArticle(article.slug)}
+          handlerFavoriteArticle={() => favoriteArticle(article.slug, article.favorited)}
           favoritesCount={article.favoritesCount}
+          isActive={article.favorited}
         />
       </Col>
       <Col span={4}>

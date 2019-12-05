@@ -16,19 +16,19 @@ class Profile extends React.Component {
     const { currentProfile } = this.props;
     return (
       <SpinnerWrapper isActive={currentProfile.isLoading}>
-        <Descriptions title="User Info" bordered>
-          <Descriptions.Item label="Image" span={4}>
+        <Descriptions title="User Info" bordered column={2}>
+          <Descriptions.Item label="Image" span={2}>
             <Avatar shape="square" size={128} src={currentProfile.image} />
           </Descriptions.Item>
-          <Descriptions.Item label="UserName" span={4}>
+          <Descriptions.Item label="UserName" span={2}>
             {currentProfile.username}
           </Descriptions.Item>
           {currentProfile.bio && (
-            <Descriptions.Item label="About me" span={4}>
+            <Descriptions.Item label="About me" span={2}>
               {currentProfile.bio}
             </Descriptions.Item>
           )}
-          <Descriptions.Item label="Follow" span={4}>
+          <Descriptions.Item label="Follow" span={2}>
             Follow Icon To Do
           </Descriptions.Item>
         </Descriptions>

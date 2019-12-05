@@ -1,9 +1,15 @@
 .article {
   &--title {
-    font-size: 36px;
+    font-size: 48px;
   }
   &--likes {
     cursor: pointer;
-    font-size: 24px;
+    font-size: 18px;
+
+    &__active {
+      cursor: pointer;
+      font-size: 18px;
+      color: #ffe58f;
+    }
   }
 }

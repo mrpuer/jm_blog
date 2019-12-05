@@ -10,17 +10,22 @@ function useQuery() {
 const ArticlesPage = () => {
   const query = useQuery();
   return (
-    <Route path="/" exact>
-      <ArticlesList
-        queryParams={{
-          tag: query.get('tag'),
-          author: query.get('author'),
-          favorited: query.get('favorited'),
-          limit: query.get('limit'),
-          offset: query.get('offset'),
-        }}
-      />
-    </Route>
+    <Route
+      path="/"
+      exact
+      render={({ location }) => (
+        <ArticlesList
+          queryParams={{
+            tag: query.get('tag'),
+            author: query.get('author'),
+            favorited: query.get('favorited'),
+            limit: query.get('limit'),
+            offset: query.get('offset'),
+          }}
+          location={location}
+        />
+      )}
+    />
   );
 };
 

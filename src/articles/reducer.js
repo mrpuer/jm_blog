@@ -27,6 +27,7 @@ const initState = {
       isLoading: false,
     },
   },
+  articlesCount: 1,
   isLoading: false,
 };
 
@@ -35,23 +36,21 @@ const articles = handleActions(
     GET_ARTICLES_REQUEST: state => {
       return { ...state, isLoading: true };
     },
-    GET_ARTICLES_SUCCESS: (state, { payload }) => {
-      const articlesObject = payload.articles.reduce((acc, article) => {
+    GET_ARTICLES_SUCCESS: (state, { payload: { articlesData } }) => {
+      const articlesObject = articlesData.articles.reduce((acc, article) => {
         return { ...acc, [article.slug]: { ...article, isLoading: false } };
       }, {});
-      return { all: articlesObject, isLoading: false };
+      return { all: articlesObject, isLoading: false, articlesCount: articlesData.articlesCount };
     },
     GET_ARTICLES_FAILURE: state => {
       return { ...state, isLoading: false };
     },
-    FAVORITE_ARTICLE_REQUEST: (state, { payload: { article } }) => {
-      return { ...state, [article.slug]: { ...article, isLoading: true } };
-    },
     FAVORITE_ARTICLE_SUCCESS: (state, { payload: { article } }) => {
-      return { ...state, [article.slug]: { ...article, isLoading: false } };
-    },
-    FAVORITE_ARTICLE_FAILURE: (state, { payload: { article } }) => {
-      return { ...state, [article.slug]: { ...article, isLoading: false } };
+      return {
+        ...state,
+        isLoading: false,
+        all: { ...state.all, [article.slug]: { ...article, isLoading: false } },
+      };
     },
   },
   initState

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import EditArticleForm from '../../forms/components/EditArticleForm';
 import { articleProps } from '../../propTypes';
 import { getArticleAction } from '../actions';
@@ -50,4 +51,4 @@ const dispatchActions = {
   getArticle: getArticleAction,
 };
 
-export default connect(mapDispatchToProps, dispatchActions)(EditArticle);
+export default connect(mapDispatchToProps, dispatchActions)(withRouter(EditArticle));

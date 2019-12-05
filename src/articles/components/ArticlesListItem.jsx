@@ -18,8 +18,9 @@ const ArticlesListItem = ({ article, favoriteArticle }) => {
         key={article.slug}
         actions={[
           <ArticleLikes
-            handlerFavoriteArticle={() => favoriteArticle(article.slug)}
+            handlerFavoriteArticle={() => favoriteArticle(article.slug, article.favorited)}
             favoritesCount={article.favoritesCount}
+            isActive={article.favorited}
           />,
           <ArticleTags tags={article.tagList} />,
         ]}
@@ -35,11 +36,11 @@ const ArticlesListItem = ({ article, favoriteArticle }) => {
                 <span>
                   <IconText type="star" />
                 </span>
-                <Link to={`profile/${article.author.username}`}>{article.author.username}</Link>
+                <Link to={`/profile/${article.author.username}`}>{article.author.username}</Link>
               </div>
             </div>
           }
-          title={<Link to={`articles/${article.slug}`}>{article.title}</Link>}
+          title={<Link to={`/articles/${article.slug}`}>{article.title}</Link>}
           description={article.description}
         />
       </List.Item>

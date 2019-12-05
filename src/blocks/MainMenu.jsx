@@ -15,7 +15,7 @@ const MainMenu = ({ isLogged, username, handleLogout }) =>
         <Link to="/add">Add Article</Link>
       </Menu.Item>
       <Menu.Item key="3">
-        <Link to={`?author=${username}`}>My Articles</Link>
+        <Link to={`/?author=${username}`}>My Articles</Link>
       </Menu.Item>
       <Menu.Item key="4">
         <Link to="/" onClick={handleLogout}>

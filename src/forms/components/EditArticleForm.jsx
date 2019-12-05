@@ -7,6 +7,7 @@ import { message } from 'antd';
 import DisplayAddArticleForm from './DisplayAddArticleForm';
 import { articleSchema } from '../../schemas/schemas';
 import { editArticleAction } from '../../article/actions';
+import { articleProps } from '../../propTypes';
 
 const EditArticleForm = ({ editArticleHandler, article }) => {
   const history = useHistory();
@@ -22,7 +23,7 @@ const EditArticleForm = ({ editArticleHandler, article }) => {
       validationSchema={articleSchema}
       onSubmit={(values, { setSubmitting }) => {
         editArticleHandler({ ...values, slug: article.slug }).then(editedArticle => {
-          message.success('New Article added!');
+          message.success('Success!');
           history.push(`/articles/${editedArticle.slug}`);
           setSubmitting(false);
         });
@@ -35,7 +36,7 @@ const EditArticleForm = ({ editArticleHandler, article }) => {
 
 EditArticleForm.propTypes = {
   editArticleHandler: PropTypes.func.isRequired,
-  article: articleSchema.isRequired,
+  article: articleProps.isRequired,
 };
 
 const mapDispatch = {

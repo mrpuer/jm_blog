@@ -7,32 +7,48 @@ import ArticlesListItem from './ArticlesListItem';
 import { articleProps } from '../../propTypes';
 import SpinnerWrapper from '../../spinner/SpinnerWrapper';
 
+const POSTS_PER_PAGE = 10;
+
 class ArticlesList extends React.Component {
   componentDidMount = () => {
+    this.getData(1);
+  };
+
+  componentDidUpdate(prevProps) {
+    const { location } = this.props;
+    if (prevProps.location !== location) {
+      this.getData(1);
+    }
+  }
+
+  getData = pageNumber => {
     const { getArticles, queryParams } = this.props;
+    queryParams.limit = POSTS_PER_PAGE;
+    queryParams.offset = (pageNumber - 1) * POSTS_PER_PAGE;
     getArticles(queryParams);
   };
 
   render() {
-    const { allArticles, isLoading } = this.props;
+    const { articles } = this.props;
     return (
-      <SpinnerWrapper isActive={isLoading}>
+      <SpinnerWrapper isActive={articles.isLoading}>
         <List
           itemLayout="vertical"
           size="large"
           pagination={{
             onChange: page => {
-              console.log(page);
+              this.getData(page);
             },
             pageSize: 10,
+            total: articles.articlesCount,
           }}
-          dataSource={Object.keys(allArticles)}
+          dataSource={Object.keys(articles.all)}
           header={
             <div>
               <h2>All Articles</h2>
             </div>
           }
-          renderItem={item => <ArticlesListItem article={allArticles[item]} />}
+          renderItem={item => <ArticlesListItem article={articles.all[item]} />}
         />
       </SpinnerWrapper>
     );
@@ -40,23 +56,39 @@ class ArticlesList extends React.Component {
 }
 
 ArticlesList.propTypes = {
-  getArticles: PropTypes.func.isRequired,
-  allArticles: PropTypes.objectOf(articleProps),
-  isLoading: PropTypes.bool,
-  queryParams: PropTypes.objectOf({
-    username: PropTypes.string,
+  articles: PropTypes.shape({
+    all: PropTypes.objectOf(articleProps),
+    isLoading: PropTypes.bool,
+    articlesCount: PropTypes.number,
   }),
+  getArticles: PropTypes.func.isRequired,
+  queryParams: PropTypes.shape({
+    tag: PropTypes.string,
+    author: PropTypes.string,
+    favorited: PropTypes.string,
+    limit: PropTypes.number,
+    offset: PropTypes.number,
+  }),
+  location: PropTypes.shape({
+    key: PropTypes.string,
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    hash: PropTypes.string,
+    state: PropTypes.shape(PropTypes.bool),
+  }).isRequired,
 };
 
 ArticlesList.defaultProps = {
-  allArticles: {},
-  isLoading: false,
+  articles: {
+    all: {},
+    isLoading: false,
+    articlesCount: 0,
+  },
   queryParams: {},
 };
 
 const mapStateToProps = ({ articles }) => ({
-  allArticles: articles.all,
-  isLoading: articles.isLoading,
+  articles,
 });
 
 const dispatchProps = {

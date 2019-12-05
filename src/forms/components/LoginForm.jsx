@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -13,14 +14,19 @@ const initialValues = {
 };
 
 const LoginForm = ({ loginHandler, showSpinner }) => {
+  const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: '/' } };
   return (
     <SpinnerWrapper isActive={showSpinner}>
       <Formik
         initialValues={initialValues}
         validationSchema={loginSchema}
         onSubmit={(values, { setSubmitting }) => {
-          setSubmitting(true);
-          loginHandler(values).then(() => setSubmitting(false));
+          loginHandler(values).then(result => {
+            if (result) history.replace(from);
+            setSubmitting(false);
+          });
         }}
       >
         {data => <DisplayLoginForm data={data} />}

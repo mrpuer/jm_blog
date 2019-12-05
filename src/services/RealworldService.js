@@ -44,12 +44,17 @@ export default class RealworldService {
 
   getArticles = async params => {
     const resp = await axios.get('/articles', { params });
-    return resp.data.articles;
+    return resp.data;
   };
 
   favoriteArticle = async slug => {
-    const resp = await axios.post(`/articles/:${slug}/favorite`);
-    return resp.article;
+    const resp = await axios.post(`/articles/${slug}/favorite`);
+    return resp.data.article;
+  };
+
+  unfavoriteArticle = async slug => {
+    const resp = await axios.delete(`/articles/${slug}/favorite`);
+    return resp.data.article;
   };
 
   getArticle = async slug => {
@@ -67,7 +72,7 @@ export default class RealworldService {
     return resp.data.article;
   };
 
-  deleteArticle = async slug => axios.delete(`/articles/:${slug}`);
+  deleteArticle = async slug => axios.delete(`/articles/${slug}`);
 
   getProfile = async username => {
     const resp = await axios.get(`/profiles/${username}`);
