@@ -2,7 +2,7 @@
 
 ## Build
 
-[Demo build](https://xn----7sbbd7ascckmbipthig7ovb.xn--p1ai/jm_blog/)
+[Demo build](https://mrpuer.github.io/jm_blog/)
 
 ## Tools
 
